@@ -12,11 +12,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
+        <title>Phần mềm bản quyền</title>
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <div class="header-top">
@@ -51,8 +51,8 @@
             </div>
         </div>
         <div class="header-bottom">
-            <h1>Siêu thị giày chất lượng cao</h1>
-            <h3>Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các sản phầm giày nhập từ Trung Quốc</h3>
+            <h1>Phần mềm bản quyền chất lượng cao</h1>
+            <h3>Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các phần mềm bản quyền chính hãng</h3>
         </div>
 
 
@@ -74,9 +74,13 @@
                 <c:forEach items="${listP}" var="p">
                     <div class="item">
                         <a href="#" title="View Product"><img src="${p.image}" alt=""/></a>
-                        <h4><a href="#" title="View Product">${p.title}</a></h4>
-                        <p> <del>900$</del> &nbsp;750 $ </p>
-                        <div>Buy Now</div>
+                        <div class="text-overflow">
+                            <a href="#" title="View Product">${p.title}</a>
+                            <p> <del>${p.price}$</del> &nbsp;${p.price *(1-0.15)} $ </p>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                        </div>
                     </div>
                 </c:forEach>
 
@@ -87,20 +91,23 @@
 
         <div class="footer">
             <div class="footer-content">
-                <h5>About</h5>
-                <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
+                <h5>GIỚI THIỆU</h5>
+                <p>Game bản quyền là gì?</p>
+                <p>Giới thiệu Divine Shop</p>
+                <p>Điều khoản dịch vụ</p>
+                <p>Chính sách bảo mật</p>
             </div>
             <div class="footer-content">
-                <h5>About</h5>
-                <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
+                <h5>TÀI KHOẢN</h5>
+                <p>Đăng nhập</p>
+                <p>Đăng ký</p>
             </div>
             <div class="footer-content">
-                <h5>About</h5>
-                <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
-            </div>
-            <div class="footer-content">
-                <h5>About</h5>
-                <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
+                <h5>LIÊN HỆ</h5>
+                <p>Hotline chăm sóc khách hàng: 1900 633 305 và 096 4567 247</p>
+                <p>(Các ngày trong tuần từ 8h đến 24h)</p>
+                <p>Email liên hệ: hotro@divineshop.vn</p>
+                <p>Địa chỉ giao dịch trực tiếp</p>
             </div>
         </div>
     </body>
