@@ -3,26 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package control;
 
 import DAL.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Products;
 import model.Catagory;
+import model.Products;
 
 /**
  *
  * @author MyPC
  */
-@WebServlet(urlPatterns = {"/ListProducts"})
-public class ListProducts extends HttpServlet {
+@WebServlet(name = "CatagoryProducts", urlPatterns = {"/catagory"})
+public class CatagoryProducts extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +41,10 @@ public class ListProducts extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListProducts</title>");
+            out.println("<title>Servlet CatagoryProducts</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListProducts at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CatagoryProducts at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,13 +62,16 @@ public class ListProducts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String cid = request.getParameter("cid");
         ProductsDAO dao = new ProductsDAO();
-        ArrayList<Products> list = dao.getProducts();
+        ArrayList<Products> listPByCID = dao.getProductsByCid(cid);
         ArrayList<Catagory> listC = dao.getCatagory();
         
-        request.setAttribute("listP", list);
         request.setAttribute("listCC", listC);
+        request.setAttribute("listP", listPByCID);
+        request.setAttribute("tag", cid);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
+        
     }
 
     /**

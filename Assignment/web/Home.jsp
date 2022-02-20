@@ -23,7 +23,7 @@
         </div>
         <div class="header">
             <div class="header-logo">
-                <a href="Home.jsp">Technology</a>
+                <a href="home">DSoftware</a>
             </div>
 
             <div class="header-search">
@@ -63,7 +63,7 @@
                     <div class="title-catagories">&nbsp <i class="fa fa-list"></i> Danh mục sản phẩm</div>
                     <ul >
                         <c:forEach items="${listCC}" var="c">
-                            <li style="background-color: white; color: black"><a class="" href="#">${c.cname}</a></li>
+                            <li style="background-color: white; color: black"><a class="${tag == c.cid ? "active" : ""}"  href="catagory?cid=${c.cid}">${c.cname}</a></li>
                             </c:forEach>
 
                     </ul>
