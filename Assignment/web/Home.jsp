@@ -93,7 +93,7 @@
             <div class="footer-content">
                 <h5>GIỚI THIỆU</h5>
                 <p>Game bản quyền là gì?</p>
-                <p>Giới thiệu Divine Shop</p>
+                <p>Giới thiệu DSortware</p>
                 <p>Điều khoản dịch vụ</p>
                 <p>Chính sách bảo mật</p>
             </div>
@@ -106,7 +106,7 @@
                 <h5>LIÊN HỆ</h5>
                 <p>Hotline chăm sóc khách hàng: 1900 633 305 và 096 4567 247</p>
                 <p>(Các ngày trong tuần từ 8h đến 24h)</p>
-                <p>Email liên hệ: hotro@divineshop.vn</p>
+                <p>Email liên hệ: hotro@dsortware.vn</p>
                 <p>Địa chỉ giao dịch trực tiếp</p>
             </div>
         </div>
