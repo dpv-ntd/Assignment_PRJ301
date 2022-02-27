@@ -65,8 +65,13 @@ public class HomeController extends HttpServlet {
         ProductsDAO dao = new ProductsDAO();
         ArrayList<Products> listProducts = dao.getProducts();
         ArrayList<Category> listCategory = dao.getCategory();
-
-        request.setAttribute("listProducts", listProducts.subList(0, 6));
+        int page = 1;
+        String pageStr = request.getParameter("page");
+        if(pageStr != null){
+            page = Integer.parseInt(pageStr);
+        }
+        final int PAGE_SIZE = 6;
+        request.setAttribute("listProducts", listProducts.subList((page-1)*PAGE_SIZE, page*PAGE_SIZE));
         request.setAttribute("listCategory", listCategory);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
