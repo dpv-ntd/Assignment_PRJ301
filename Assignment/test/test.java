@@ -20,13 +20,13 @@ public class test {
         ArrayList<Products> products = new ArrayList<Products>();
         products = dao.getProducts();
         for (Products product : products) {
-            System.out.println(product.getTitle());
+            System.out.println(product);
         }
 
-        ArrayList<Catagory> cata = new ArrayList<Catagory>();
-        cata = dao.getCatagory();
-        for (Catagory cataa : cata) {
-            System.out.println(cataa.getCname());
-        }
+//        ArrayList<Catagory> cata = new ArrayList<Catagory>();
+//        cata = dao.getCatagory();
+//        for (Catagory cataa : cata) {
+//            System.out.println(cataa.getCname());
+//        }
     }
 }
