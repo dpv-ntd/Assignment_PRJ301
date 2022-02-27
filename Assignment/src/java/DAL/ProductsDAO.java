@@ -23,23 +23,19 @@ public class ProductsDAO extends BaseDAO<Products> {
     public ArrayList<Products> getProducts() {
         ArrayList<Products> products = new ArrayList<>();
         try {
-            String sql = "SELECT [id]\n"
-                    + "      ,[name]\n"
-                    + "      ,[image]\n"
-                    + "      ,[price]\n"
-                    + "      ,[title]\n"
-                    + "      ,[description]\n"
-                    + "  FROM [Product] ORDER BY id";
+            String sql = "SELECT * FROM Product ORDER BY id";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Products s = new Products();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
-                s.setImage(rs.getString("image"));
+                s.setQuantity(rs.getInt("quantity"));
                 s.setPrice(rs.getDouble("price"));
-                s.setTitle(rs.getString("title"));
                 s.setDescription(rs.getString("description"));
+                s.setImage_url(rs.getString("image_url"));
+                s.setCreated_date(rs.getDate("created_date"));
+                s.setCategory_id(rs.getInt("category_id"));
                 products.add(s);
             }
         } catch (SQLException ex) {
@@ -59,9 +55,9 @@ public class ProductsDAO extends BaseDAO<Products> {
                 Products s = new Products();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
-                s.setImage(rs.getString("image"));
+
                 s.setPrice(rs.getDouble("price"));
-                s.setTitle(rs.getString("title"));
+
                 s.setDescription(rs.getString("description"));
                 products.add(s);
             }
