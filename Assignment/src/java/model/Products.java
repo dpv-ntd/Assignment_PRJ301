@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author MyPC
@@ -13,21 +15,25 @@ public class Products {
 
     private int id;
     private String name;
-    private String image;
+    private int quantity;
     private double price;
-    private String title;
     private String description;
+    private String image_url;
+    private Date created_date;
+    private int category_id;
 
     public Products() {
     }
 
-    public Products(int id, String name, String image, double price, String title, String description) {
+    public Products(int id, String name, int quantity, double price, String description, String image_url, Date created_date, int category_id) {
         this.id = id;
         this.name = name;
-        this.image = image;
+        this.quantity = quantity;
         this.price = price;
-        this.title = title;
         this.description = description;
+        this.image_url = image_url;
+        this.created_date = created_date;
+        this.category_id = category_id;
     }
 
     public int getId() {
@@ -46,12 +52,12 @@ public class Products {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public double getPrice() {
@@ -62,14 +68,6 @@ public class Products {
         this.price = price;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -78,11 +76,33 @@ public class Products {
         this.description = description;
     }
 
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public Date getCreated_date() {
+        return created_date;
+    }
+
+    public void setCreated_date(Date created_date) {
+        this.created_date = created_date;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
     @Override
     public String toString() {
-        return "Products{" + "id=" + id + ", name=" + name + ", image=" + image + ", price=" + price + ", title=" + title + ", description=" + description + '}';
+        return "Products{" + "id=" + id + ", name=" + name + ", quantity=" + quantity + ", price=" + price + ", description=" + description + ", image_url=" + image_url + ", created_date=" + created_date + ", category_id=" + category_id + '}';
     }
-    
-    
-    
+
 }
