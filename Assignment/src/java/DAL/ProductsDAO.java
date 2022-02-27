@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Catagory;
+import model.Category;
 import model.Products;
 
 /**
@@ -43,7 +43,7 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
         return products;
     }
-    
+
     public ArrayList<Products> getProductsByCid(String cid) {
         ArrayList<Products> products = new ArrayList<>();
         try {
@@ -67,22 +67,22 @@ public class ProductsDAO extends BaseDAO<Products> {
         return products;
     }
 
-    public ArrayList<Catagory> getCatagory() {
-        ArrayList<Catagory> catagory = new ArrayList<>();
+    public ArrayList<Category> getCategory() {
+        ArrayList<Category> category = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Catagory";
+            String sql = "SELECT * FROM Category";
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                Catagory c = new Catagory();
-                c.setCid(rs.getInt("cid"));
-                c.setCname(rs.getString("cname"));
-                catagory.add(c);
+                Category c = new Category();
+                c.setId(rs.getInt("id"));
+                c.setName(rs.getString("name"));
+                category.add(c);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return catagory;
+        return category;
     }
- 
+
 }

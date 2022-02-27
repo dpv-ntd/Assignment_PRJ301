@@ -14,7 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Catagory;
+import model.Category;
 import model.Products;
 
 /**
@@ -63,11 +63,11 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductsDAO dao = new ProductsDAO();
-        ArrayList<Products> list = dao.getProducts();
-        ArrayList<Catagory> listC = dao.getCatagory();
+        ArrayList<Products> listProducts = dao.getProducts();
+        ArrayList<Category> listCategory = dao.getCategory();
 
-        request.setAttribute("listP", list);
-        request.setAttribute("listCC", listC);
+        request.setAttribute("listProducts", listProducts);
+        request.setAttribute("listCategory", listCategory);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 

@@ -1,7 +1,7 @@
 
 import DAL.ProductsDAO;
 import java.util.ArrayList;
-import model.Catagory;
+import model.Category;
 import model.Products;
 
 /*
@@ -20,13 +20,13 @@ public class test {
         ArrayList<Products> products = new ArrayList<Products>();
         products = dao.getProducts();
         for (Products product : products) {
-            System.out.println(product);
+            System.out.println(product.getId());
         }
 
-//        ArrayList<Catagory> cata = new ArrayList<Catagory>();
-//        cata = dao.getCatagory();
-//        for (Catagory cataa : cata) {
-//            System.out.println(cataa.getCname());
-//        }
+        ArrayList<Category> cata = new ArrayList<Category>();
+        cata = dao.getCatagory();
+        for (Category cataa : cata) {
+            System.out.println(cataa.getName());
+        }
     }
 }
