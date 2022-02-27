@@ -21,8 +21,8 @@ import model.Products;
  *
  * @author MyPC
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/home"})
-public class HomeController extends HttpServlet {
+@WebServlet(name = "CategoryController", urlPatterns = {"/category"})
+public class CategoryController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +41,10 @@ public class HomeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeController</title>");
+            out.println("<title>Servlet CategoryController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CategoryController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,12 +62,14 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String id = request.getParameter("id");
         ProductsDAO dao = new ProductsDAO();
-        ArrayList<Products> listProducts = dao.getProducts();
+        ArrayList<Products> listPByCID = dao.getProductsByCid(id);
         ArrayList<Category> listCategory = dao.getCategory();
 
-        request.setAttribute("listProducts", listProducts.subList(0, 6));
         request.setAttribute("listCategory", listCategory);
+        request.setAttribute("listProducts", listPByCID);
+        request.setAttribute("tag", id);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 

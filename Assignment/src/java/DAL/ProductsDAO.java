@@ -44,21 +44,23 @@ public class ProductsDAO extends BaseDAO<Products> {
         return products;
     }
 
-    public ArrayList<Products> getProductsByCid(String cid) {
+    public ArrayList<Products> getProductsByCid(String category_id) {
         ArrayList<Products> products = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Product WHERE cid = ?";
+            String sql = "SELECT * FROM Product WHERE category_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, cid);
+            statement.setString(1, category_id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Products s = new Products();
                 s.setId(rs.getInt("id"));
                 s.setName(rs.getString("name"));
-
+                s.setQuantity(rs.getInt("quantity"));
                 s.setPrice(rs.getDouble("price"));
-
                 s.setDescription(rs.getString("description"));
+                s.setImage_url(rs.getString("image_url"));
+                s.setCreated_date(rs.getDate("created_date"));
+                s.setCategory_id(rs.getInt("category_id"));
                 products.add(s);
             }
         } catch (SQLException ex) {

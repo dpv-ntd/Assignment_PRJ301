@@ -75,8 +75,8 @@
                         <h3>LIST CATEGORIES</h3>
                         <ul class="list-group">
                             <c:forEach items="${listCategory}" var="c">
-                                <li class="list-group-item"><a href="#">${c.name}</a></li>
-                            </c:forEach>
+                                <li class="list-group-item"><a href="category?id=${c.id}">${c.name}</a></li>
+                                </c:forEach>
                         </ul>
                     </div>
                     <div class="col-md-9">
@@ -105,6 +105,19 @@
                                 </div>
                             </c:forEach>
                         </div>
+                        <nav class="d-flex justify-content-center">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item active" aria-current="page"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
 
