@@ -68,13 +68,15 @@ public class HomeController extends HttpServlet {
         ArrayList<Category> listCategory = dao.getCategory();
 
         int page = 1;
-        final int page_size = 9;
+        int page_size = 9;
 
         String pageStr = request.getParameter("page");
         if (pageStr != null)  page = Integer.parseInt(pageStr);
+        
 
         int countProducts = dao.countProducts();
         int totalPage = countProducts / page_size;
+        if(page <= 0 || page > totalPage) page_size = 0;
         
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
