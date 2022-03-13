@@ -69,6 +69,47 @@ public class ProductsDAO extends BaseDAO<Products> {
         return products;
     }
 
+    public ArrayList<Products> getProductsWithPage(int page, int page_size) {
+        ArrayList<Products> products = new ArrayList<>();
+        try {
+            String sql = "SELECT TOP (?) * FROM Product WHERE id > (?-1)*? ORDER BY id";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, page_size);
+            statement.setInt(2, page);
+            statement.setInt(3, page_size);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Products s = new Products();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                s.setQuantity(rs.getInt("quantity"));
+                s.setPrice(rs.getDouble("price"));
+                s.setDescription(rs.getString("description"));
+                s.setImage_url(rs.getString("image_url"));
+                s.setCreated_date(rs.getDate("created_date"));
+                s.setCategory_id(rs.getInt("category_id"));
+                products.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+    
+        public int countProducts() {
+        try {
+            String sql = "SELECT COUNT(*) FROM Product";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
     public ArrayList<Category> getCategory() {
         ArrayList<Category> category = new ArrayList<>();
         try {

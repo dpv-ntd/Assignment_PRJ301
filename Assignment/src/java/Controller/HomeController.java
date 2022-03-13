@@ -62,16 +62,18 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         ProductsDAO dao = new ProductsDAO();
         ArrayList<Products> listProducts = dao.getProducts();
         ArrayList<Category> listCategory = dao.getCategory();
+        
         int page = 1;
+        final int page_size = 6;
+        
         String pageStr = request.getParameter("page");
-        if(pageStr != null){
-            page = Integer.parseInt(pageStr);
-        }
-        final int PAGE_SIZE = 6;
-        request.setAttribute("listProducts", listProducts.subList((page-1)*PAGE_SIZE, page*PAGE_SIZE));
+        if(pageStr != null) page = Integer.parseInt(pageStr);
+        
+        request.setAttribute("listProducts", dao.getProductsWithPage(page, page_size));
         request.setAttribute("listCategory", listCategory);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
