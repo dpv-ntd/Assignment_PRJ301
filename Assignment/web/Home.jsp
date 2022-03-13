@@ -83,10 +83,7 @@
                         </div>
                     </div>
 
-
-
                     <div class="col-md-9">
-
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
                             <c:if test="${page <= 0 || page > totalPage}">
                                 <h5>Not founds</h5>
@@ -115,31 +112,27 @@
                             </c:forEach>
                         </div>
 
-                        <nav class="d-flex justify-content-center">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
                             <ul class="pagination">
-                                <c:if test="${page <= 0 || page > totalPage}">
+                                <c:if test="${page >= 1 && page <= totalPage}">
+                                    <li class="page-item ${page == 1 ? "disabled":""}"><a class="page-link" href="home?page=1">First</a></li>
+                                        <c:if test="${page == 1}">
+                                        <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                        <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
+                                        <li class="page-item"><a class="page-link" href="home?page=${page+2}">${page+2}</a></li>
+                                        </c:if>
+                                        <c:if test="${page > 1 && page < totalPage}">
+                                        <li class="page-item"><a class="page-link" href="home?page=${page-1}">${page-1}</a></li>
+                                        <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                        <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
+                                        </c:if>
+                                        <c:if test="${page == totalPage}">
+                                        <li class="page-item"><a class="page-link" href="home?page=${page-2}">${page-2}</a></li>
+                                        <li class="page-item"><a class="page-link" href="home?page=${page-1}">${page-1}</a></li>
+                                        <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                        </c:if>
+                                    <li class="page-item ${page == totalPage ? "disabled":""}"><a class="page-link" href="home?page=${totalPage}">Last</a></li>
                                 </c:if>
-                                <c:if test="${page == 1}">
-                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page+2}">${page+2}</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">Next</a></li>
-                                    </c:if>
-                                    <c:if test="${page > 1 && page < totalPage}">
-                                    <li class="page-item"><a class="page-link" href="home?page=${page-1}">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page-1}">${page-1}</a></li>
-                                    <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">Next</a></li>
-                                    </c:if>
-                                    <c:if test="${page == totalPage}">
-                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page-2}">${page-2}</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page-1}">${page-1}</a></li>
-                                    <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
-                                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                                    </c:if>
                             </ul>
                         </nav>
 
