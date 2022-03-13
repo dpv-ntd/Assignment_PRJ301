@@ -71,9 +71,9 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row">
-                    
+
                     <div class="col-md-3 mb-5">
-                        <div class="card border-primary mb-3">
+                        <div class="card border-dark mb-3">
                             <h5 class="card-header">LIST CATEGORY</h5>
                             <ul class="list-group">
                                 <c:forEach items="${listCategory}" var="c">
@@ -82,9 +82,9 @@
                             </ul>
                         </div>
                     </div>
-                    
+
                     <div class="col-md-9">
-                        <h5 class="card-header">LIST PRODUCTS</h5>
+
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
                             <c:forEach items="${listProducts}" var="p">
                                 <div class="col mb-5">
