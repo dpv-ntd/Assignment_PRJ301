@@ -68,7 +68,7 @@ public class HomeController extends HttpServlet {
         ArrayList<Category> listCategory = dao.getCategory();
 
         int page = 1;
-        final int page_size = 6;
+        final int page_size = 9;
 
         String pageStr = request.getParameter("page");
         if (pageStr != null)  page = Integer.parseInt(pageStr);
