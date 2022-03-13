@@ -63,6 +63,7 @@ public class CategoryController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");
+        if(id == null) id = "1";
         ProductsDAO dao = new ProductsDAO();
         ArrayList<Products> listPByCID = dao.getProductsByCid(id);
         ArrayList<Category> listCategory = dao.getCategory();
