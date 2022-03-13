@@ -83,9 +83,14 @@
                         </div>
                     </div>
 
+
+
                     <div class="col-md-9">
 
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
+                            <c:if test="${page <= 0 || page > totalPage}">
+                                <h5>Not founds</h5>
+                            </c:if>
                             <c:forEach items="${listProducts}" var="p">
                                 <div class="col mb-5">
                                     <div class="card h-100">
@@ -112,6 +117,8 @@
 
                         <nav class="d-flex justify-content-center">
                             <ul class="pagination">
+                                <c:if test="${page <= 0 || page > totalPage}">
+                                </c:if>
                                 <c:if test="${page == 1}">
                                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                                     <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
@@ -143,7 +150,7 @@
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-primary">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; DSoftware 2022</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
