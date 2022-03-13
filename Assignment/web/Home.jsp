@@ -107,15 +107,20 @@
                         </div>
                         <nav class="d-flex justify-content-center">
                             <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="home?page=1">1</a></li>
-                                <li class="page-item " aria-current="page"><a class="page-link" href="home?page=2">2</a></li>
-                                <li class="page-item"><a class="page-link" href="home?page=3">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li>
+                                <c:if test="${page == 1}">
+                                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page+2}">${page+2}</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">Next</a></li>
+                                </c:if>
+                                <c:if test="${page > 1}">
+                                    <li class="page-item"><a class="page-link" href="home?page=${page-1}">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page-1}">${page-1}</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page+1}">Next</a></li>
+                                </c:if>
                             </ul>
                         </nav>
                     </div>
