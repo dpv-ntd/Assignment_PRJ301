@@ -45,25 +45,25 @@
                     </ul>
                     <form class="d-flex mx-auto" >
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
                     <form class="d-flex my-2">
-                        <button class="btn btn-outline-dark" type="submit">
+                        <button class="btn btn-outline-secondary" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span class="badge bg-secondary text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
-                    <button class="btn btn-outline-success ms-lg-2">Login</button>
+                    <button class="btn btn-outline-primary ms-lg-2">Login</button>
                 </div>
             </div>
         </nav>
         <!-- Header-->
-        <header class="bg-dark py-5">
+        <header class="bg-primary py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                    <h1 class="display-4 fw-bolder">Software Shop</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Genuine software copyright</p>
                 </div>
             </div>
         </header>
@@ -71,16 +71,20 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row">
+                    
                     <div class="col-md-3 mb-5">
-                        <h3>LIST CATEGORIES</h3>
-                        <ul class="list-group">
-                            <c:forEach items="${listCategory}" var="c">
-                                <li class="list-group-item"><a href="category?id=${c.id}">${c.name}</a></li>
+                        <div class="card border-primary mb-3">
+                            <h5 class="card-header">LIST CATEGORY</h5>
+                            <ul class="list-group">
+                                <c:forEach items="${listCategory}" var="c">
+                                    <a class="list-group-item list-group-item-action ${c.id == tag?"active":""}" href="category?id=${c.id}">${c.name}</a>
                                 </c:forEach>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
+                    
                     <div class="col-md-9">
-                        <h3>LIST PRODUCTS</h3>
+                        <h5 class="card-header">LIST PRODUCTS</h5>
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
                             <c:forEach items="${listProducts}" var="p">
                                 <div class="col mb-5">
@@ -105,31 +109,40 @@
                                 </div>
                             </c:forEach>
                         </div>
+
                         <nav class="d-flex justify-content-center">
                             <ul class="pagination">
                                 <c:if test="${page == 1}">
                                     <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                    <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
                                     <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
                                     <li class="page-item"><a class="page-link" href="home?page=${page+2}">${page+2}</a></li>
                                     <li class="page-item"><a class="page-link" href="home?page=${page+1}">Next</a></li>
-                                </c:if>
-                                <c:if test="${page > 1}">
+                                    </c:if>
+                                    <c:if test="${page > 1 && page < totalPage}">
                                     <li class="page-item"><a class="page-link" href="home?page=${page-1}">Previous</a></li>
                                     <li class="page-item"><a class="page-link" href="home?page=${page-1}">${page-1}</a></li>
-                                    <li class="page-item"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                    <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
                                     <li class="page-item"><a class="page-link" href="home?page=${page+1}">${page+1}</a></li>
                                     <li class="page-item"><a class="page-link" href="home?page=${page+1}">Next</a></li>
-                                </c:if>
+                                    </c:if>
+                                    <c:if test="${page == totalPage}">
+                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page-2}">${page-2}</a></li>
+                                    <li class="page-item"><a class="page-link" href="home?page=${page-1}">${page-1}</a></li>
+                                    <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
+                                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                                    </c:if>
                             </ul>
                         </nav>
+
                     </div>
                 </div>
 
             </div>
         </section>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer class="py-5 bg-primary">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
         </footer>
         <!-- Bootstrap core JS-->
