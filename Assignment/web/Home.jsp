@@ -27,12 +27,10 @@
         <!-- Navigation-->
         <%@include file="Navigation.jsp"%>
         <!-- Header-->
-        <header class="bg-primary py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Software Shop</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Genuine software copyright</p>
-                </div>
+        <header class="bg-secondary py-5" bs-gray>
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Software Shop</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Genuine software copyright</p>
             </div>
         </header>
         <!-- Section-->

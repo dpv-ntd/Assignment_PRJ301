@@ -40,7 +40,7 @@ public class DetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DetailController</title>");            
+            out.println("<title>Servlet DetailController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet DetailController at " + request.getContextPath() + "</h1>");
@@ -61,12 +61,19 @@ public class DetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String productId = request.getParameter("productId");
+
         ProductsDAO dao = new ProductsDAO();
         Products products = dao.getProductsByProductsId(productId);
-        
+
         String productsName = products.getName();
+        int producsCategoryId = products.getCategory_id();
+
+        ArrayList<Products> relatedProducts = dao.getRelatedProductsByCategoryId(producsCategoryId, productId);
+
         request.setAttribute("products", products);
+        request.setAttribute("relatedProducts", relatedProducts);
         request.getRequestDispatcher("Detail.jsp").forward(request, response);
     }
 

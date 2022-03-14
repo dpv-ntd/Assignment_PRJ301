@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="home">DSortware</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -28,19 +28,20 @@
 
                 <form class="d-flex mx-auto" action="search" method="get">
                     <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                    <button class="btn btn-light" type="submit">Search</button>
                 </form>
 
                 <form class="d-flex my-2">
-                    <button class="btn btn-outline-success" type="submit">
+                    <button class="btn btn-outline-light" type="submit">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
-                        <span class="badge bg-success text-white ms-1 rounded-pill">0</span>
+                        <span class="badge bg-light text-black ms-1 rounded-pill">0</span>
                     </button>
                 </form>
 
-                <button class="btn btn-outline-primary ms-lg-2">Login</button>
+                <button class="btn btn-outline-light ms-lg-2">Login</button>
             </div>
         </div>
     </nav>
+    
 </html>

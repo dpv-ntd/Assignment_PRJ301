@@ -43,6 +43,32 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
         return products;
     }
+    
+    public ArrayList<Products> getRelatedProductsByCategoryId(int category_id, String products_id) {
+        ArrayList<Products> products = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Product WHERE category_id = ? and id != ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, category_id);
+            statement.setString(2, products_id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Products s = new Products();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                s.setQuantity(rs.getInt("quantity"));
+                s.setPrice(rs.getDouble("price"));
+                s.setDescription(rs.getString("description"));
+                s.setImage_url(rs.getString("image_url"));
+                s.setCreated_date(rs.getDate("created_date"));
+                s.setCategory_id(rs.getInt("category_id"));
+                products.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
 
     public Products getProductsByProductsId(String products_id) {
         try {
