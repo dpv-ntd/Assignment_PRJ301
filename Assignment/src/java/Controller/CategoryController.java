@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Products;
 
@@ -65,9 +66,7 @@ public class CategoryController extends HttpServlet {
         String id = request.getParameter("id");
         ProductsDAO dao = new ProductsDAO();
         ArrayList<Products> listPByCID = dao.getProductsByCategoryId(id);
-        ArrayList<Category> listCategory = dao.getCategory();
 
-        request.setAttribute("listCategory", listCategory);
         request.setAttribute("listProducts", listPByCID);
         request.setAttribute("tag", id);
         request.getRequestDispatcher("Home.jsp").forward(request, response);

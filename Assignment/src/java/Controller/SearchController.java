@@ -66,13 +66,11 @@ public class SearchController extends HttpServlet {
         ProductsDAO dao = new ProductsDAO();
         ArrayList<Products> listProducts = dao.getProductsWithKeyword(keyword);
         ArrayList<Category> listCategory = dao.getCategory();
-        
+
         if (keyword != "") {
             request.setAttribute("listProducts", listProducts);
-            request.setAttribute("listCategory", listCategory);
             request.getRequestDispatcher("Home.jsp").forward(request, response);
         } else {
-            request.setAttribute("listCategory", listCategory);
             request.getRequestDispatcher("Home.jsp").forward(request, response);
         }
 

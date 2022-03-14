@@ -39,11 +39,16 @@
                         </div>
                         <p class="lead">${products.getDescription()}</p>
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <input class="form-control text-center me-3" id="inputQuantity" type="" value="1" style="max-width: 3rem" />
+                        </div>
+                        <div class="d-flex">
+                            <a href="add-to-cart?productId=${products.id}" class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
-                            </button>
+                            </a>
+                            <a class="btn btn-outline-danger flex-shrink-0 ms-2" type="button">
+                                Buy now
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -87,6 +92,7 @@
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
                                 </div>
+
                             </div>
                         </div>
                     </c:forEach>

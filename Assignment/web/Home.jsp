@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>DSortware - Homepage</title>
+        <title>DSoftware - Homepage</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/icon-36x36.png" />
         <!-- Bootstrap icons-->
@@ -42,7 +42,7 @@
                         <div class="card border-dark mb-3">
                             <h5 class="card-header">LIST CATEGORY</h5>
                             <ul class="list-group">
-                                <c:forEach items="${listCategory}" var="c">
+                                <c:forEach items="${sessionScope.listCategory}" var="c">
                                     <a class="list-group-item list-group-item-action ${c.id == tag?"active":""}" href="category?id=${c.id}">${c.name}</a>
                                 </c:forEach>
                             </ul>

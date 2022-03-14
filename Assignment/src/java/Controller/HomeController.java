@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Products;
 
@@ -81,7 +82,10 @@ public class HomeController extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("listProducts", dao.getProductsWithPage(page, page_size));
-        request.setAttribute("listCategory", listCategory);
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("listCategory", listCategory);
+        
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
