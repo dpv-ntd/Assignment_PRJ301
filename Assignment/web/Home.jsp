@@ -17,7 +17,7 @@
         <meta name="author" content="" />
         <title>DSortware - Homepage</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="assets/icon-36x36.png" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -43,17 +43,20 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex mx-auto" >
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+                    <form class="d-flex mx-auto" action="search" method="get">
+                        <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-primary" type="submit">Search</button>
                     </form>
+
                     <form class="d-flex my-2">
-                        <button class="btn btn-outline-secondary" type="submit">
+                        <button class="btn btn-outline-success" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-secondary text-white ms-1 rounded-pill">0</span>
+                            <span class="badge bg-success text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
+
                     <button class="btn btn-outline-primary ms-lg-2">Login</button>
                 </div>
             </div>
@@ -85,31 +88,41 @@
 
                     <div class="col-md-9">
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
-                            <c:if test="${page <= 0 || page > totalPage}">
+                            <c:if test="${page <= 0 || page > totalPage || listProducts == null || listProducts.size()==0}}">
                                 <h5>Not founds</h5>
                             </c:if>
-                            <c:forEach items="${listProducts}" var="p">
-                                <div class="col mb-5">
-                                    <div class="card h-100">
-                                        <!-- Product image-->
-                                        <img class="card-img-top" src="${p.image_url}" alt="..." />
-                                        <!-- Product details-->
-                                        <div class="card-body p-4">
-                                            <div class="text-center">
-                                                <!-- Product name-->
-                                                <h5 class="fw-bolder">${p.name}</h5>
-                                                <!-- Product price-->
-                                                ${p.price}
+                            <c:choose>
+                                <c:when test="${page <= 0 || page > totalPage || listProducts == null || listProducts.size()==0}">
+                                    <h5>Not founds</h5>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach items="${listProducts}" var="p">
+                                        <div class="col mb-5">
+                                            <div class="card h-100">
+                                                <!-- Product image-->
+                                                <a href="detail?productId=${p.id}">
+                                                    <img class="card-img-top" src="${p.image_url}" alt="..." />
+                                                </a>
+                                                <!-- Product details-->
+                                                <div class="card-body p-4">
+                                                    <div class="text-center">
+                                                        <!-- Product name-->
+                                                        <h5 class="fw-bolder">${p.name}</h5>
+                                                        <!-- Product price-->
+                                                        ${p.price}
+                                                    </div>
+                                                </div>
+                                                <!-- Product actions-->
+                                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Product actions-->
-                                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
                         </div>
 
                         <nav aria-label="Page navigation example" class="d-flex justify-content-center">
@@ -132,7 +145,7 @@
                                         <li class="page-item active"><a class="page-link" href="home?page=${page}">${page}</a></li>
                                         </c:if>
                                     <li class="page-item ${page == totalPage ? "disabled":""}"><a class="page-link" href="home?page=${totalPage}">Last</a></li>
-                                </c:if>
+                                    </c:if>
                             </ul>
                         </nav>
 

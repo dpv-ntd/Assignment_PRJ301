@@ -44,7 +44,31 @@ public class ProductsDAO extends BaseDAO<Products> {
         return products;
     }
 
-    public ArrayList<Products> getProductsByCid(String category_id) {
+    public Products getProductsByProductsId(String products_id) {
+        try {
+            String sql = "SELECT * FROM Product WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, products_id);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Products s = new Products();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                s.setQuantity(rs.getInt("quantity"));
+                s.setPrice(rs.getDouble("price"));
+                s.setDescription(rs.getString("description"));
+                s.setImage_url(rs.getString("image_url"));
+                s.setCreated_date(rs.getDate("created_date"));
+                s.setCategory_id(rs.getInt("category_id"));
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Products> getProductsByCategoryId(String category_id) {
         ArrayList<Products> products = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Product WHERE category_id = ?";
@@ -95,8 +119,34 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
         return products;
     }
-    
-        public int countProducts() {
+
+    public ArrayList<Products> getProductsWithKeyword(String keyword) {
+        ArrayList<Products> products = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Product WHERE name like ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "%" + keyword + "%");
+
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Products s = new Products();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                s.setQuantity(rs.getInt("quantity"));
+                s.setPrice(rs.getDouble("price"));
+                s.setDescription(rs.getString("description"));
+                s.setImage_url(rs.getString("image_url"));
+                s.setCreated_date(rs.getDate("created_date"));
+                s.setCategory_id(rs.getInt("category_id"));
+                products.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+
+    public int countProducts() {
         try {
             String sql = "SELECT COUNT(*) FROM Product";
             PreparedStatement statement = connection.prepareStatement(sql);
