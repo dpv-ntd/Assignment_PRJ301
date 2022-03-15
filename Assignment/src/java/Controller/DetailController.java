@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Products;
 
 /**
@@ -74,6 +75,9 @@ public class DetailController extends HttpServlet {
 
         request.setAttribute("products", products);
         request.setAttribute("relatedProducts", relatedProducts);
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("urlPrev", "detail?productId=" + productId);
         request.getRequestDispatcher("Detail.jsp").forward(request, response);
     }
 

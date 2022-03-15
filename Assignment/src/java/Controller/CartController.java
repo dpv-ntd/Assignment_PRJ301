@@ -5,20 +5,15 @@
  */
 package Controller;
 
-import DAL.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Cart;
-import model.Products;
 
 /**
  *
@@ -44,7 +39,7 @@ public class CartController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartController</title>");
+            out.println("<title>Servlet CartController</title>");            
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CartController at " + request.getContextPath() + "</h1>");
@@ -65,28 +60,10 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int productId = Integer.parseInt(request.getParameter("productId"));
-
-        ProductsDAO dao = new ProductsDAO();
-        HttpSession session = request.getSession();
-
-        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
-        if (carts == null) {
-            carts = new LinkedHashMap<>();
-        }
-
-        if (carts.containsKey(productId)) {
-            int oldQuantity = carts.get(productId).getQuantity();
-            carts.get(productId).setQuantity(oldQuantity + 1);
-        } else {
-            Products products = dao.getProductsByProductsId(String.valueOf(productId));
-            Cart newCart = new Cart(products, 1);
-            carts.put(productId, newCart);
-        }
-
-        System.out.println(carts);
-        session.setAttribute("carts", carts);
-        response.sendRedirect("detail?productId=" + productId);
+        Map<Integer, Cart> cart = (Map) request.getSession().getAttribute("carts");
+        
+        request.setAttribute("cart", cart);
+        request.getRequestDispatcher("Cart.jsp").forward(request, response);
     }
 
     /**

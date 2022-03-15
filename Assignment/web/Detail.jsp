@@ -39,7 +39,7 @@
                         </div>
                         <p class="lead">${products.getDescription()}</p>
                         <div class="d-flex">
-                            <a href="cart?productId=${products.id}" class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <a href="add-to-cart?productId=${products.id}" class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </a>
