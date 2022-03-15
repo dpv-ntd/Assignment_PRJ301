@@ -51,9 +51,6 @@
 
                     <div class="col-md-9">
                         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
-                            <c:if test="${page <= 0 || page > totalPage || listProducts == null || listProducts.size()==0}}">
-                                <h5>Not founds</h5>
-                            </c:if>
                             <c:choose>
                                 <c:when test="${page <= 0 || page > totalPage || listProducts == null || listProducts.size()==0}">
                                     <h5>Not founds</h5>
@@ -77,7 +74,7 @@
                                                 </div>
                                                 <!-- Product actions-->
                                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="cart?productId=${p.id}">Add to cart</a></div>
 
                                                 </div>
                                             </div>

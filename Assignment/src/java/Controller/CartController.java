@@ -9,21 +9,23 @@ import DAL.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Category;
+import model.Cart;
 import model.Products;
 
 /**
  *
  * @author MyPC
  */
-@WebServlet(name = "HomeController", urlPatterns = {"/home"})
-public class HomeController extends HttpServlet {
+@WebServlet(name = "CartController", urlPatterns = {"/cart"})
+public class CartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +44,10 @@ public class HomeController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeController</title>");
+            out.println("<title>Servlet CartController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CartController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,30 +65,28 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int productId = Integer.parseInt(request.getParameter("productId"));
 
         ProductsDAO dao = new ProductsDAO();
-        ArrayList<Products> listProducts = dao.getProducts();
-        ArrayList<Category> listCategory = dao.getCategory();
-
-        int page = 1;
-        int page_size = 9;
-
-        String pageStr = request.getParameter("page");
-        if (pageStr != null)  page = Integer.parseInt(pageStr);
-        
-
-        int countProducts = dao.countProducts();
-        int totalPage = countProducts / page_size;
-        if(page <= 0 || page > totalPage) page_size = 0;
-        
-        request.setAttribute("page", page);
-        request.setAttribute("totalPage", totalPage);
-        request.setAttribute("listProducts", dao.getProductsWithPage(page, page_size));
-        System.out.println(listProducts.size());
         HttpSession session = request.getSession();
-        session.setAttribute("listCategory", listCategory);
-        
-        request.getRequestDispatcher("Home.jsp").forward(request, response);
+
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
+
+        if (carts.containsKey(productId)) {
+            int oldQuantity = carts.get(productId).getQuantity();
+            carts.get(productId).setQuantity(oldQuantity + 1);
+        } else {
+            Products products = dao.getProductsByProductsId(String.valueOf(productId));
+            Cart newCart = new Cart(products, 1);
+            carts.put(productId, newCart);
+        }
+
+        System.out.println(carts);
+        session.setAttribute("carts", carts);
+        response.sendRedirect("detail?productId=" + productId);
     }
 
     /**
