@@ -33,22 +33,25 @@
                             <th scope="col">#</th>
                             <th scope="col">Image</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <c:forEach items="${cart}}" var="c">
-                        <tbody>
+                    <c:forEach items="${carts}" var="c">
+                        <c:set var="stt" value="${stt+1}"></c:set>
+                        <form action="update-quantity">
                             <tr>
-                                <th scope="row">${c.value.products.id}</th>
-                                <td>${c.value.products.image_url}</td>
-                                <td>${c.value.products.name}</td>
-                                <td>${c.value.quantity}</td>
-                                <td>${c.value.products.price * c.value.quantity}</td>
-                                <td>Delete</td>
+                            <td>${stt}</td>
+                            <td><img src="${c.value.products.image_url}" width="80"/></td>
+                            <td>${c.value.products.name}</td>
+                            <td>${c.value.products.price}</td>
+                            <td><input onchange="this.form.submit()" type="number" name="quantity" value="${c.value.quantity}"/></td>
+                            <td>${c.value.products.price*c.value.quantity}</td>
+                            <td><a href="delete-cart?productId=${c.value.products.id}" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a></td>
                             </tr>
-                        </tbody>
+                        </form>
                     </c:forEach>
 
                 </table>

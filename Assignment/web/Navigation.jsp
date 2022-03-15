@@ -32,7 +32,7 @@
                 </form>
 
                 <form class="d-flex my-2" action="cart" method="get">
-                    <button class="btn btn-outline-light" type="submit">
+                    <button class="btn btn-outline-light" type="submit">    
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                         <span class="badge bg-light text-black ms-1 rounded-pill">${sessionScope.carts.size()}</span>

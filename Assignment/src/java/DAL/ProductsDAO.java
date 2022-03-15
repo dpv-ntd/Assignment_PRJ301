@@ -70,11 +70,11 @@ public class ProductsDAO extends BaseDAO<Products> {
         return products;
     }
 
-    public Products getProductsByProductsId(String products_id) {
+    public Products getProductsByProductsId(int products_id) {
         try {
             String sql = "SELECT * FROM Product WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, products_id);
+            statement.setInt(1, products_id);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Products s = new Products();

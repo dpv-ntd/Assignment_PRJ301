@@ -29,6 +29,10 @@ public class Cart {
     public void setProducts(Products products) {
         this.products = products;
     }
+    public Products getProductsByID(int id){
+        
+        return products;
+    }
 
     public int getQuantity() {
         return quantity;

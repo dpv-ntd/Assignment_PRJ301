@@ -66,7 +66,7 @@ public class DetailController extends HttpServlet {
         String productId = request.getParameter("productId");
 
         ProductsDAO dao = new ProductsDAO();
-        Products products = dao.getProductsByProductsId(productId);
+        Products products = dao.getProductsByProductsId(Integer.parseInt(productId));
 
         String productsName = products.getName();
         int producsCategoryId = products.getCategory_id();

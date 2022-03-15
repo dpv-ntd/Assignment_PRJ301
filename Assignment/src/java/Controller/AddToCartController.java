@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -79,12 +80,11 @@ public class AddToCartController extends HttpServlet {
             int oldQuantity = carts.get(productId).getQuantity();
             carts.get(productId).setQuantity(oldQuantity + 1);
         } else {
-            Products products = dao.getProductsByProductsId(String.valueOf(productId));
+            Products products = dao.getProductsByProductsId(productId);
             Cart newCart = new Cart(products, 1);
             carts.put(productId, newCart);
         }
 
-        System.out.println(carts);
         session.setAttribute("carts", carts);
         String urlPrev = (String) session.getAttribute("urlPrev");
         if (urlPrev == null) {
