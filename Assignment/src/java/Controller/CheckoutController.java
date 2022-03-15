@@ -7,7 +7,6 @@ package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -22,8 +21,8 @@ import model.Cart;
  *
  * @author MyPC
  */
-@WebServlet(name = "CartController", urlPatterns = {"/cart"})
-public class CartController extends HttpServlet {
+@WebServlet(name = "CheckoutController", urlPatterns = {"/checkout"})
+public class CheckoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class CartController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartController</title>");
+            out.println("<title>Servlet CheckoutController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CheckoutController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,43 +62,22 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String action = request.getParameter("action");
-
         HttpSession session = request.getSession();
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();
         }
 
-        if (action == null || action.equals("")) {
-            request.getRequestDispatcher("home").forward(request, response);
-            return;
+        double totalAmount = 0;
+        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+            Integer key = entry.getKey();
+            Cart value = entry.getValue();
+
+            totalAmount += value.getQuantity() * value.getProducts().getPrice();
         }
-        switch (action) {
-
-            case "view-cart":
-                double totalAmount = 0;
-                for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
-                    Integer key = entry.getKey();
-                    Cart value = entry.getValue();
-
-                    totalAmount += value.getQuantity() * value.getProducts().getPrice();
-                }
-                session.setAttribute("totalAmount", totalAmount);
-                session.setAttribute("carts", carts);
-                request.getRequestDispatcher("Cart.jsp").forward(request, response);
-
-            case "delete-cart":
-                int productId = Integer.parseInt(request.getParameter("productId"));
-                if (carts.containsKey(productId)) {
-                    carts.remove(productId);
-                }
-                session.setAttribute("carts", carts);
-                response.sendRedirect("cart?action=view-cart");
-
-        }
-
+        session.setAttribute("totalAmount", totalAmount);
+        session.setAttribute("carts", carts);
+        request.getRequestDispatcher("Checkout.jsp").forward(request, response);
     }
 
     /**

@@ -4,6 +4,7 @@
     Author     : MyPC
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,7 @@
                             <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                         </ul>
                     </li>
+
                 </ul>
 
                 <form class="d-flex mx-auto" action="search" method="get">
@@ -43,5 +45,5 @@
             </div>
         </div>
     </nav>
-    
+
 </html>

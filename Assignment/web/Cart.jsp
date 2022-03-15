@@ -29,8 +29,11 @@
             <c:when test="${sessionScope.carts.size() == 0 || sessionScope.carts == null}">
                 <section class="py-5">
                     <div class="container" style="min-height: 350px">
-                        <h5>Your shopping cart is empty</h5>                
-                        <a href="home" class="btn btn-danger">BUY NOW</a>
+                        <div class="mx-auto p-1 text-center">
+                            <img src="assets/cart-empty.png" alt=""/>
+                            <h5>Your shopping cart is empty</h5>                
+                            <a href="home" class="btn btn-danger">BUY NOW</a>
+                        </div> 
                     </div>
                 </section>
             </c:when>
@@ -38,7 +41,7 @@
                 <section class="py-5">
                     <div class="container" style="min-height: 500px">
                         <h5>Your cart</h5>
-                        <table class="table">
+                        <table class="table table-bordered text-center">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -51,20 +54,59 @@
                                 </tr>
                             </thead>
                             <c:forEach items="${sessionScope.carts}" var="c">
-                                <form action="cart?action=update-quantity&productId=${c.value.products.id}">
+                                <form action="update-cart">
                                     <tr>
                                         <td>${c.key}</td>
                                         <td><img src="${c.value.products.image_url}" width="80"/></td>
                                         <td>${c.value.products.name}</td>
                                         <td>${c.value.products.price}</td>
                                         <td><input onchange="this.form.submit()" type="number" name="quantity" value="${c.value.quantity}"/></td>
-                                        <td>${c.value.products.price*c.value.quantity}</td>
-                                        <td><a href="cart?action=delete-cart&productId=${c.value.products.id}" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a></td>
+                                    <input type="hidden" name="productId" value="${c.value.products.id}">
+                                    <td>${c.value.products.price*c.value.quantity}</td>
+                                    <td><a href="cart?action=delete-cart&productId=${c.value.products.id}" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a></td>
                                     </tr>
                                 </form>
                             </c:forEach>
                         </table>
-                        <h3>Total Amount: $${totalAmount}</h3>
+<br>
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <a class="btn btn-outline-primary btn-sm btn-block" href="home">Continue Shopping</a>
+                            </div>
+                            <div class="col-md-6" >
+                                <div class="row justify-content-end">
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <div class="col-md-12 text-end border-bottom mb-5">
+                                                <h3 class="text-black">CART TOTALS</h3>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <span class="text-black">Subtotal</span>
+                                            </div>
+                                            <div class="col-md-6 text-end">
+                                                <strong class="text-black">$${totalAmount}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-5">
+                                            <div class="col-md-6">
+                                                <span class="text-black">Total</span>
+                                            </div>
+                                            <div class="col-md-6 text-end">
+                                                <strong class="text-black">$${totalAmount}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <button class="btn btn-primary btn-lg text-uppercase " onclick="window.location = 'checkout'">Proceed To Checkout</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </section>
 
