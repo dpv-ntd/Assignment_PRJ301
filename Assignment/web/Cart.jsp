@@ -25,38 +25,51 @@
         <!-- Navigation-->
         <%@include file="Navigation.jsp"%>
         <!-- Cart section-->
-        <section class="py-5">
-            <div class="container" style="min-height: 500px">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Image</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <c:forEach items="${carts}" var="c">
-                        <c:set var="stt" value="${stt+1}"></c:set>
-                        <form action="update-quantity">
-                            <tr>
-                            <td>${stt}</td>
-                            <td><img src="${c.value.products.image_url}" width="80"/></td>
-                            <td>${c.value.products.name}</td>
-                            <td>${c.value.products.price}</td>
-                            <td><input onchange="this.form.submit()" type="number" name="quantity" value="${c.value.quantity}"/></td>
-                            <td>${c.value.products.price*c.value.quantity}</td>
-                            <td><a href="cart?action=delete-cart&productId=${c.value.products.id}" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a></td>
-                            </tr>
-                        </form>
-                    </c:forEach>
+        <c:choose>
+            <c:when test="${sessionScope.carts.size() == 0 || sessionScope.carts == null}">
+                <section class="py-5">
+                    <div class="container" style="min-height: 350px">
+                        <h5>Your shopping cart is empty</h5>                
+                        <a href="home" class="btn btn-danger">BUY NOW</a>
+                    </div>
+                </section>
+            </c:when>
+            <c:otherwise>
+                <section class="py-5">
+                    <div class="container" style="min-height: 500px">
+                        <h5>Your cart</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <c:forEach items="${sessionScope.carts}" var="c">
+                                <form action="cart?action=update-quantity&productId=${c.value.products.id}">
+                                    <tr>
+                                        <td>${c.key}</td>
+                                        <td><img src="${c.value.products.image_url}" width="80"/></td>
+                                        <td>${c.value.products.name}</td>
+                                        <td>${c.value.products.price}</td>
+                                        <td><input onchange="this.form.submit()" type="number" name="quantity" value="${c.value.quantity}"/></td>
+                                        <td>${c.value.products.price*c.value.quantity}</td>
+                                        <td><a href="cart?action=delete-cart&productId=${c.value.products.id}" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a></td>
+                                    </tr>
+                                </form>
+                            </c:forEach>
+                        </table>
+                        <h3>Total Amount: $${totalAmount}</h3>
+                    </div>
+                </section>
 
-                </table>
-            </div>
-        </section>
+            </c:otherwise>
+        </c:choose>
         <!-- Footer-->
         <%@include file="Footer.jsp"%>
         <!-- Bootstrap core JS-->

@@ -65,7 +65,6 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
 
         String action = request.getParameter("action");
-        
 
         HttpSession session = request.getSession();
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
@@ -78,13 +77,32 @@ public class CartController extends HttpServlet {
             return;
         }
         switch (action) {
+
             case "view-cart":
-                request.setAttribute("carts", carts);
+                double totalAmount = 0;
+                for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+                    Integer key = entry.getKey();
+                    Cart value = entry.getValue();
+
+                    totalAmount += value.getQuantity() * value.getProducts().getPrice();
+                }
+                session.setAttribute("totalAmount", totalAmount);
+                session.setAttribute("carts", carts);
                 request.getRequestDispatcher("Cart.jsp").forward(request, response);
+
             case "delete-cart":
                 int productId = Integer.parseInt(request.getParameter("productId"));
-                if(carts.containsKey(productId)) carts.remove(productId);
-                request.setAttribute("carts", carts);
+                if (carts.containsKey(productId)) {
+                    carts.remove(productId);
+                }
+                session.setAttribute("carts", carts);
+                response.sendRedirect("cart?action=view-cart");
+
+            case "update-quantity":
+                int quantity = Integer.parseInt(request.getParameter("quantity"));
+                int productID = Integer.parseInt(request.getParameter("productId"));
+                if(carts.containsKey(productID)) carts.get(productID).setQuantity(quantity);
+                session.setAttribute("carts", carts);
                 response.sendRedirect("cart?action=view-cart");
         }
 
