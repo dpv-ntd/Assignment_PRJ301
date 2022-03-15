@@ -49,7 +49,7 @@
                             <td>${c.value.products.price}</td>
                             <td><input onchange="this.form.submit()" type="number" name="quantity" value="${c.value.quantity}"/></td>
                             <td>${c.value.products.price*c.value.quantity}</td>
-                            <td><a href="delete-cart?productId=${c.value.products.id}" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a></td>
+                            <td><a href="cart?action=delete-cart&productId=${c.value.products.id}" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</a></td>
                             </tr>
                         </form>
                     </c:forEach>

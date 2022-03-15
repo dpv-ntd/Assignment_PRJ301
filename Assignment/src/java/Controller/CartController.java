@@ -63,14 +63,31 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String action = request.getParameter("action");
         
+
         HttpSession session = request.getSession();
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();
         }
-        request.setAttribute("carts", carts);
-        request.getRequestDispatcher("Cart.jsp").forward(request, response);
+
+        if (action == null || action.equals("")) {
+            request.getRequestDispatcher("home").forward(request, response);
+            return;
+        }
+        switch (action) {
+            case "view-cart":
+                request.setAttribute("carts", carts);
+                request.getRequestDispatcher("Cart.jsp").forward(request, response);
+            case "delete-cart":
+                int productId = Integer.parseInt(request.getParameter("productId"));
+                if(carts.containsKey(productId)) carts.remove(productId);
+                request.setAttribute("carts", carts);
+                response.sendRedirect("cart?action=view-cart");
+        }
+
     }
 
     /**

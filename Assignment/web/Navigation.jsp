@@ -31,13 +31,13 @@
                     <button class="btn btn-light" type="submit">Search</button>
                 </form>
 
-                <form class="d-flex my-2" action="cart" method="get">
-                    <button class="btn btn-outline-light" type="submit">    
+                <div class="d-flex my-2">
+                    <a class="btn btn-outline-light" href="cart?action=view-cart">    
                         <i class="bi-cart-fill me-1"></i>
                         Cart
                         <span class="badge bg-light text-black ms-1 rounded-pill">${sessionScope.carts.size()}</span>
-                    </button>
-                </form> 
+                    </a>
+                </div> 
 
                 <button class="btn btn-outline-light ms-lg-2">Login</button>
             </div>
