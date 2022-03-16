@@ -32,7 +32,7 @@ public class ShippingDAO extends BaseDAO<Shipping>{
             if(rs.next()) return rs.getInt(1);
             
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ShippingDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
         

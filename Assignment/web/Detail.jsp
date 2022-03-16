@@ -43,9 +43,6 @@
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </a>
-                            <a class="btn btn-outline-danger flex-shrink-0 ms-2" type="button">
-                                Buy now
-                            </a>
                         </div>
                     </div>
                 </div>

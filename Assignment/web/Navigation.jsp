@@ -43,7 +43,9 @@
                     </a>
                 </div> 
 
-                <button class="btn btn-outline-light ms-lg-2">Login</button>
+                <div>
+                    <a href="login" class="btn btn-outline-light ms-lg-2">Login</a>
+                </div>
             </div>
         </div>
     </nav>

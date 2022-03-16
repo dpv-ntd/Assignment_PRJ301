@@ -5,30 +5,24 @@
  */
 package Controller;
 
-import DAL.OrderDAO;
-import DAL.OrderDetailDAO;
-import DAL.ShippingDAO;
+import DAL.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Cart;
-import model.Order;
-import model.OrderDetail;
-import model.Shipping;
+import model.Account;
 
 /**
  *
  * @author MyPC
  */
-@WebServlet(name = "CheckoutController", urlPatterns = {"/checkout"})
-public class CheckoutController extends HttpServlet {
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -47,10 +41,10 @@ public class CheckoutController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CheckoutController</title>");
+            out.println("<title>Servlet LoginController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CheckoutController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,23 +62,7 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
-        if (carts == null) {
-            carts = new LinkedHashMap<>();
-        }
-
-        double totalAmount = 0;
-        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
-            Integer key = entry.getKey();
-            Cart value = entry.getValue();
-
-            totalAmount += value.getQuantity() * value.getProducts().getPrice();
-        }
-        session.setAttribute("totalAmount", totalAmount);
-        session.setAttribute("carts", carts);
-        session.setAttribute("urlPrev", "checkout");
-        request.getRequestDispatcher("Checkout.jsp").forward(request, response);
+        request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
     /**
@@ -98,45 +76,30 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String remember = request.getParameter("remember");
         HttpSession session = request.getSession();
-        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
-        if (carts == null) {
-            carts = new LinkedHashMap<>();
+
+        AccountDAO dao = new AccountDAO();
+        Account account = dao.getAccount(username, password);
+
+        if (account != null) {
+            if (remember != null) {
+                Cookie c_user = new Cookie("username", username);
+                Cookie c_pass = new Cookie("password", password);
+                c_user.setMaxAge(60);
+                c_pass.setMaxAge(60);
+                response.addCookie(c_pass);
+                response.addCookie(c_user);
+            }
+            session.setAttribute("account", account);
+            response.sendRedirect("home");
+            
+        } else {
+            request.setAttribute("notify", "Login failed!");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
-
-        double totalAmount = 0;
-        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
-            Integer key = entry.getKey();
-            Cart value = entry.getValue();
-
-            totalAmount += value.getQuantity() * value.getProducts().getPrice();
-        }
-        
-        String name = request.getParameter("name");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
-        String note = request.getParameter("note");
-
-        Shipping shipping = new Shipping();
-        shipping.setName(name);
-        shipping.setPhone(phone);
-        shipping.setAddress(address);
-        ShippingDAO shippingdao = new ShippingDAO();
-        int shippingId = new ShippingDAO().InsertAndReturnShippingId(shipping);
-
-        Order order = new Order();
-        order.setAccount_id(1);
-        order.setShipping_id(shippingId);
-        order.setTotalPrice(totalAmount);
-        order.setNote(note);
-        int orderId = new OrderDAO().InsertAndReturnOrderId(order);
-        
-        new OrderDetailDAO().saveCart(orderId, carts);
-        carts.clear();
-        response.sendRedirect("thankyou");
     }
 
     /**

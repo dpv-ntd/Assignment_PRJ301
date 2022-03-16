@@ -38,7 +38,7 @@ public class OrderDetailDAO extends BaseDAO<OrderDetail> {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrderDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

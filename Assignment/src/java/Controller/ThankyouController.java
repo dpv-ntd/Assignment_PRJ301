@@ -5,28 +5,20 @@
  */
 package Controller;
 
-import DAL.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Cart;
-import model.Products;
 
 /**
  *
  * @author MyPC
  */
-@WebServlet(name = "AddToCartController", urlPatterns = {"/add-to-cart"})
-public class AddToCartController extends HttpServlet {
+@WebServlet(name = "ThankyouController", urlPatterns = {"/thankyou"})
+public class ThankyouController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +37,10 @@ public class AddToCartController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartController</title>");
+            out.println("<title>Servlet ThankyouController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ThankyouController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,33 +58,7 @@ public class AddToCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int productId = Integer.parseInt(request.getParameter("productId"));
-        
-        ProductsDAO dao = new ProductsDAO();
-        HttpSession session = request.getSession();
-        
-        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
-        if (carts == null) {
-            carts = new LinkedHashMap<>();
-        }
-        
-        if (carts.containsKey(productId)) {
-            int oldQuantity = carts.get(productId).getQuantity();
-            carts.get(productId).setQuantity(oldQuantity + 1);
-        } else {
-            Products products = dao.getProductsByProductsId(productId);
-            Cart newCart = new Cart(products, 1);
-            carts.put(productId, newCart);
-        }
-        
-        
-        session.setAttribute("carts", carts);
-        String urlPrev = (String) session.getAttribute("urlPrev");
-        if (urlPrev == null) {
-            urlPrev = "home";
-        }
-        response.sendRedirect(urlPrev);
-        
+        request.getRequestDispatcher("Thankyou.jsp").forward(request, response);
     }
 
     /**
