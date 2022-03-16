@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 <!DOCTYPE html>
 <html>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
@@ -43,9 +44,30 @@
                     </a>
                 </div> 
 
-                <div>
-                    <a href="login" class="btn btn-outline-light ms-lg-2">Login</a>
-                </div>
+                <c:choose>
+                    <c:when test="${sessionScope.account != null}">
+                        <div class="ms-lg-2">
+                            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i>${sessionScope.account.displayName}</a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="#!">Profiles</a></li>
+                                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li><a class="dropdown-item" href="logout">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </c:when>
+                    <c:otherwise>
+                        <div>
+                            <a href="login" class="btn btn-outline-light ms-lg-2">Login</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
             </div>
         </div>
     </nav>

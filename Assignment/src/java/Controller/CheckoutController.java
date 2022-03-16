@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Cart;
 import model.Order;
 import model.OrderDetail;
@@ -81,6 +82,11 @@ public class CheckoutController extends HttpServlet {
 
             totalAmount += value.getQuantity() * value.getProducts().getPrice();
         }
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) {
+            response.sendRedirect("login");
+            return;
+        }
         session.setAttribute("totalAmount", totalAmount);
         session.setAttribute("carts", carts);
         session.setAttribute("urlPrev", "checkout");
@@ -102,6 +108,12 @@ public class CheckoutController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+        if (account == null) {
+            response.sendRedirect("login");
+            return;
+        }
+
         Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
         if (carts == null) {
             carts = new LinkedHashMap<>();
@@ -114,7 +126,7 @@ public class CheckoutController extends HttpServlet {
 
             totalAmount += value.getQuantity() * value.getProducts().getPrice();
         }
-        
+
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
@@ -128,12 +140,12 @@ public class CheckoutController extends HttpServlet {
         int shippingId = new ShippingDAO().InsertAndReturnShippingId(shipping);
 
         Order order = new Order();
-        order.setAccount_id(1);
+        order.setAccount_id(account.getId());
         order.setShipping_id(shippingId);
         order.setTotalPrice(totalAmount);
         order.setNote(note);
         int orderId = new OrderDAO().InsertAndReturnOrderId(order);
-        
+
         new OrderDetailDAO().saveCart(orderId, carts);
         carts.clear();
         response.sendRedirect("thankyou");

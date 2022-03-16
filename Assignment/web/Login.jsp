@@ -23,9 +23,15 @@
     <body>
         <div class="container p-5">
             <div class="d-flex justify-content-center">
+                <div class="text-center">
+                    <div ${notify == null ? "hidden":""} class="alert alert-danger text-center px-5 w-100" role="alert" >
+                        ${notify}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
                 <form action="login" method="post" class="bg-light" style="border: 1px solid #ccc; border-radius: 5px; padding: 3rem">
                     <h1 class="h3 mb-2 font-weight-normal text-center">Sign-In</h1>
-
                     <h5 class="sr-only">Username</h5>
                     <input type="text" class="form-control mb-2" placeholder="Enter Username" required name="username">
                     <h5 class="sr-only">Password</h5>
@@ -35,7 +41,6 @@
                             <input type="checkbox" name="remember"> Remember me
                         </label>
                     </div>
-                    <h5 class="text-dangger">${notify}</h5>
                     <div class="col-md-12 text-center">
                         <button class="btn btn-primary btn-block px-5 w-100" type="submit">Login</button>
                     </div>
