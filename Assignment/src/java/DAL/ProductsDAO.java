@@ -39,7 +39,7 @@ public class ProductsDAO extends BaseDAO<Products> {
                 products.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return products;
     }
@@ -65,7 +65,7 @@ public class ProductsDAO extends BaseDAO<Products> {
                 products.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return products;
     }
@@ -89,7 +89,7 @@ public class ProductsDAO extends BaseDAO<Products> {
                 return s;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -114,7 +114,7 @@ public class ProductsDAO extends BaseDAO<Products> {
                 products.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return products;
     }
@@ -141,7 +141,7 @@ public class ProductsDAO extends BaseDAO<Products> {
                 products.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return products;
     }
@@ -167,7 +167,7 @@ public class ProductsDAO extends BaseDAO<Products> {
                 products.add(s);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return products;
     }
@@ -199,7 +199,7 @@ public class ProductsDAO extends BaseDAO<Products> {
                 category.add(c);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return category;
     }

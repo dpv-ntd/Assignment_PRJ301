@@ -17,10 +17,10 @@ import model.Account;
 
 /**
  *
- * @author MyPC
+ * @author DPV
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/register"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "ProfilesController", urlPatterns = {"/profiles"})
+public class ProfilesController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class RegisterController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterController</title>");
+            out.println("<title>Servlet ProfilesController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProfilesController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +60,22 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Register.jsp").forward(request, response);
+
+        Account account = (Account) request.getSession().getAttribute("account");
+        if (account == null) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        request.setAttribute("id", account.getId());
+        request.setAttribute("username", account.getUsername());
+        request.setAttribute("displayName", account.getDisplayName());
+        request.setAttribute("email", account.getEmail());
+        request.setAttribute("phone", account.getPhone());
+        request.setAttribute("address", account.getAddress());
+        request.setAttribute("role", account.getRole());
+
+        request.getRequestDispatcher("Profiles.jsp").forward(request, response);
     }
 
     /**
@@ -74,30 +89,21 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String repassword = request.getParameter("repassword");
-        String success = null;
-        String error = null;
-        AccountDAO dao = new AccountDAO();
-        Account account = dao.getAccountByUsername(username);
-        if (!password.equals(repassword)) {
-            error = "Confirm password does not match.";
-            request.setAttribute("error", error);
-            request.getRequestDispatcher("Register.jsp").forward(request, response);
-            return;
-        }
-        if (account != null) {
-            error = "This account already exists.";
-            request.setAttribute("error", error);
-            request.getRequestDispatcher("Register.jsp").forward(request, response);
-            return;
-        }
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
-        dao.createAccount(username, password);
-        success = "Sign Up Success";
-        request.setAttribute("success", success);
-        request.getRequestDispatcher("Register.jsp").forward(request, response);
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+
+        AccountDAO dao = new AccountDAO();
+        dao.updateProfiles(id, name, email, phone, address);
+        Account account = dao.getAccountById(id);
+        request.getSession().setAttribute("account", account);
+        response.sendRedirect("profiles");
     }
 
     /**

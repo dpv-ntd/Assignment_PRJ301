@@ -28,7 +28,7 @@
         <c:choose>
             <c:when test="${sessionScope.carts.size() == 0 || sessionScope.carts == null}">
                 <section class="py-5">
-                    <div class="container" style="min-height: 350px">
+                    <div class="container" style="min-height: 470px">
                         <div class="mx-auto p-1 text-center">
                             <img src="assets/cart-empty.png" alt=""/>
                             <h5>Your shopping cart is empty</h5>                

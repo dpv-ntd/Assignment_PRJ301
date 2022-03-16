@@ -25,7 +25,7 @@
         <%@include file="Navigation.jsp"%>
         <!-- Thankyou section-->
         <section class="py-5">
-            <div class="container" style="min-height: 350px">
+            <div class="container" style="min-height: 480px">
                 <div class="mx-auto p-1 text-center">
                     <img src="assets/check-success.png" alt=""/>
                     <h5>You order was successfuly completed.</h5>                
