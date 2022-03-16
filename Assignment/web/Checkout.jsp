@@ -46,7 +46,7 @@
                                 <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name">
+                                        <input type="text" class="form-control" id="name" name="name" >
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Phone</label>
