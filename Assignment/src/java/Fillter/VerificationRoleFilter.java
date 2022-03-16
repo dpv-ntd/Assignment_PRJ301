@@ -5,12 +5,10 @@
  */
 package Fillter;
 
-import model.Account;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,13 +19,14 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
- * @author MyPC
+ * @author DPV
  */
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/checkout", "/manage"})
-public class AuthenticationFilter implements Filter {
+@WebFilter(filterName = "VerificationRoleFilter", urlPatterns = {"/manage/*"})
+public class VerificationRoleFilter implements Filter {
 
     private static final boolean debug = true;
 
@@ -36,13 +35,13 @@ public class AuthenticationFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
 
-    public AuthenticationFilter() {
+    public VerificationRoleFilter() {
     }
 
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AuthenticationFilter:DoBeforeProcessing");
+            log("VerificationRoleFilter:DoBeforeProcessing");
         }
 
         // Write code here to process the request and/or response before
@@ -70,7 +69,7 @@ public class AuthenticationFilter implements Filter {
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
-            log("AuthenticationFilter:DoAfterProcessing");
+            log("VerificationRoleFilter:DoAfterProcessing");
         }
 
         // Write code here to process the request and/or response after
@@ -104,16 +103,19 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession();
 
         Account account = (Account) session.getAttribute("account");
-
         if (account != null) {
-            chain.doFilter(request, response);
-        } else {
+            if (account.getRole().equals("ADMIN")) {
+                chain.doFilter(request, response);
+            } else {
+                res.sendRedirect("home");
+                return;
+            }
+        } else{
             res.sendRedirect("login");
         }
 
@@ -145,7 +147,12 @@ public class AuthenticationFilter implements Filter {
      * Init method for this filter
      */
     public void init(FilterConfig filterConfig) {
-
+        this.filterConfig = filterConfig;
+        if (filterConfig != null) {
+            if (debug) {
+                log("VerificationRoleFilter:Initializing filter");
+            }
+        }
     }
 
     /**
@@ -154,9 +161,9 @@ public class AuthenticationFilter implements Filter {
     @Override
     public String toString() {
         if (filterConfig == null) {
-            return ("AuthenticationFilter()");
+            return ("VerificationRoleFilter()");
         }
-        StringBuffer sb = new StringBuffer("AuthenticationFilter(");
+        StringBuffer sb = new StringBuffer("VerificationRoleFilter(");
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
