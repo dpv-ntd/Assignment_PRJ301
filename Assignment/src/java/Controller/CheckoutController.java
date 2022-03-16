@@ -5,6 +5,9 @@
  */
 package Controller;
 
+import DAL.OrderDAO;
+import DAL.OrderDetailDAO;
+import DAL.ShippingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedHashMap;
@@ -16,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Cart;
+import model.Order;
+import model.OrderDetail;
+import model.Shipping;
 
 /**
  *
@@ -77,6 +83,7 @@ public class CheckoutController extends HttpServlet {
         }
         session.setAttribute("totalAmount", totalAmount);
         session.setAttribute("carts", carts);
+        session.setAttribute("urlPrev", "checkout");
         request.getRequestDispatcher("Checkout.jsp").forward(request, response);
     }
 
@@ -91,7 +98,43 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        Map<Integer, Cart> carts = (Map<Integer, Cart>) session.getAttribute("carts");
+        if (carts == null) {
+            carts = new LinkedHashMap<>();
+        }
+
+        double totalAmount = 0;
+        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+            Integer key = entry.getKey();
+            Cart value = entry.getValue();
+
+            totalAmount += value.getQuantity() * value.getProducts().getPrice();
+        }
+        
+        String name = request.getParameter("name");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String note = request.getParameter("note");
+
+        Shipping shipping = new Shipping();
+        shipping.setName(name);
+        shipping.setPhone(phone);
+        shipping.setAddress(address);
+        ShippingDAO shippingdao = new ShippingDAO();
+        int shippingId = new ShippingDAO().InsertAndReturnShippingId(shipping);
+
+        Order order = new Order();
+        order.setAccount_id(1);
+        order.setShipping_id(shippingId);
+        order.setTotalPrice(totalAmount);
+        order.setNote(note);
+        int orderId = new OrderDAO().InsertAndReturnOrderId(order);
+        
+        new OrderDetailDAO().saveCart(orderId, carts);
+        carts.clear();
+        response.sendRedirect("Thankyou.jsp");
     }
 
     /**

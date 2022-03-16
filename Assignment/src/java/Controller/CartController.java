@@ -88,6 +88,7 @@ public class CartController extends HttpServlet {
                 }
                 session.setAttribute("totalAmount", totalAmount);
                 session.setAttribute("carts", carts);
+                session.setAttribute("urlPrev", "cart?action=view-cart");
                 request.getRequestDispatcher("Cart.jsp").forward(request, response);
 
             case "delete-cart":

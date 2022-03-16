@@ -32,7 +32,7 @@
                         <div class="mx-auto p-1 text-center">
                             <img src="assets/cart-empty.png" alt=""/>
                             <h5>Your shopping cart is empty</h5>                
-                            <a href="home" class="btn btn-danger">BUY NOW</a>
+                            <a href="home" class="btn btn-danger">SHOPPING NOW</a>
                         </div> 
                     </div>
                 </section>
@@ -57,7 +57,7 @@
                                 <form action="update-cart">
                                     <tr>
                                         <td>${c.key}</td>
-                                        <td><img src="${c.value.products.image_url}" width="80"/></td>
+                                        <td><a href="detail?productId=${c.value.products.id}"><img src="${c.value.products.image_url}" width="80"/></a></td>
                                         <td>${c.value.products.name}</td>
                                         <td>${c.value.products.price}</td>
                                         <td><input onchange="this.form.submit()" type="number" name="quantity" value="${c.value.quantity}"/></td>
@@ -68,7 +68,7 @@
                                 </form>
                             </c:forEach>
                         </table>
-<br>
+                        <br>
                         <div class="row">
                             <div class="col-md-6 ">
                                 <a class="btn btn-outline-primary btn-sm btn-block" href="home">Continue Shopping</a>

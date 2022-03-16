@@ -25,64 +25,77 @@
         <!-- Navigation-->
         <%@include file="Navigation.jsp"%>
         <!-- Checkout section-->
-        <section class="py-5">
-            <div class="container" style="min-height: 600px">
-                <h3>Billing Details</h3>
-                <form>
-                    <div class="row">
-                        <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" aria-describedby="emailHelp">
-                            </div>
-                            <div class="mb-3">
-                                <label for="note" class="form-label">Note</label>
-                                <textarea class="form-control" id="note" name="note" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-5 " style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
-                            <h4>Your Order</h4>
-                            <table class="table site-block-order-table mb-5">
-                                <thead>
-                                <th>Product</th>
-                                <th>Total</th>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${sessionScope.carts}" var="b">
-                                        <tr>
-                                            <td>${b.value.products.name} <strong class="mx-2">x</strong> ${b.value.quantity}</td>
-                                            <td>$${b.value.products.price}</td>
-                                        </tr>
-                                    </c:forEach>
-                                    <tr>
-                                        <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                                        <td class="text-black">$${totalAmount}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-                                        <td class="text-black font-weight-bold"><strong>$${totalAmount}</strong></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        <c:choose>
+            <c:when test="${sessionScope.carts.size() == 0 || sessionScope.carts == null}">
+                <section class="py-5">
+                    <div class="container" style="min-height: 350px">
+                        <div class="mx-auto p-1 text-center">
+                            <img src="assets/cart-empty.png" alt=""/>
+                            <h5>Your shopping cart is empty</h5>                
+                            <a href="home" class="btn btn-danger">SHOPPING NOW</a>
+                        </div> 
                     </div>
-                    <div class="form-group btn-lg text-end py-3">
-                        <button class="btn btn-primary  btn-block" onclick="window.location = 'thankyou.html'">Place Order</button>
+                </section>
+            </c:when>
+            <c:otherwise>
+                <section class="py-5">
+                    <div class="container" style="min-height: 600px">
+                        <h3>Billing Details</h3>
+                        <form action="checkout" method="post">
+                            <div class="row">
+                                <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="note" class="form-label">Note</label>
+                                        <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-1"></div>
+                                <div class="col-md-5 " style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
+                                    <h4>Your Order</h4>
+                                    <table class="table site-block-order-table mb-5">
+                                        <thead>
+                                        <th>Product</th>
+                                        <th>Total</th>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${sessionScope.carts}" var="b">
+                                                <tr>
+                                                    <td>${b.value.products.name} <strong class="mx-2">x</strong> ${b.value.quantity}</td>
+                                                    <td>$${b.value.products.price}</td>
+                                                </tr>
+                                            </c:forEach>
+                                            <tr>
+                                                <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
+                                                <td class="text-black">$${totalAmount}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+                                                <td class="text-black font-weight-bold"><strong>$${totalAmount}</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="form-group btn-lg text-end py-3">
+                                <button class="btn btn-primary  btn-block" onclick="window.location = 'thankyou.html'">Place Order</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-        </section>
-
-
+                </section>
+            </c:otherwise>
+        </c:choose>
         <!-- Footer-->
         <%@include file="Footer.jsp"%>
         <!-- Bootstrap core JS-->

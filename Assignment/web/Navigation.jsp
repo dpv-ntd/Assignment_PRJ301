@@ -16,18 +16,20 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">All Products</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                        </ul>
-                    </li>
-
+                        <c:choose>
+                            <c:when test="${sessionScope.urlPrev.equals('home')}"></c:when>
+                            <c:otherwise>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Category</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <c:forEach items="${sessionScope.listCategory}" var="c">
+                                        <li><a class="dropdown-item ${c.id == tag?"active":""}" href="category?id=${c.id}">${c.name}</a></li>
+                                        </c:forEach>
+                                </ul>
+                            </li>
+                        </c:otherwise>
+                    </c:choose> 
                 </ul>
-
                 <form class="d-flex mx-auto" action="search" method="get">
                     <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
                     <button class="btn btn-light" type="submit">Search</button>
