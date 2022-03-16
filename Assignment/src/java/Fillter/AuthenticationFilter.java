@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author MyPC
  */
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/checkout", "/manage"})
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/checkout", "/manage", "/manage-product"})
 public class AuthenticationFilter implements Filter {
 
     private static final boolean debug = true;

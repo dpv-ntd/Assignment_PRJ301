@@ -43,7 +43,7 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
         return products;
     }
-    
+
     public ArrayList<Products> getRelatedProductsByCategoryId(int category_id, String products_id) {
         ArrayList<Products> products = new ArrayList<>();
         try {
@@ -203,5 +203,17 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
         return category;
     }
+
+    public void deleteProduct(String id) {
+        try {
+            String sql = "DELETE Product WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
 }

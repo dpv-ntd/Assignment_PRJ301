@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Manage Dashboard | DSoftware</title>
+        <title>Manage Product | DSoftware</title>
         <script src="js/scripts.js" type="text/javascript"></script>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
@@ -78,7 +78,7 @@
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Manage Product</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="manage-product">View Details</a>
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 <div class="card bg-warning text-white mb-4">
                                     <div class="card-body">Manage Account</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="manage-account">View Details</a>
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
                                 <div class="card bg-success text-white mb-4">
                                     <div class="card-body">Manage Category</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="manage-category">View Details</a>
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
@@ -112,27 +112,6 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -144,11 +123,12 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Name</th>
+                                            <th>Image</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
                                             <th>Description</th>
-                                            <th>Image</th>
                                             <th>Category</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -156,11 +136,17 @@
                                             <tr>
                                                 <td>${p.id}</td>
                                                 <td>${p.name}</td>
+                                                <td><img src="${p.image_url}" alt="" width="80"/></td>
                                                 <td>${p.quantity}</td>
                                                 <td>${p.price}</td>
                                                 <td>${p.description}</td>
-                                                <td>${p.image_url}</td>
                                                 <td>${p.category_id}</td>
+                                                <td>
+                                                    <div class="d-flex my-4">
+                                                        <a href="update?id=" class="btn btn-primary flex-shrink-0 me-2">Update</a>
+                                                        <a href="#" onclick="showMessDel(${p.id})" class="btn btn-danger flex-shrink-0">Delete</a>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -169,6 +155,14 @@
                         </div>
                     </div>
                 </main>
+                <script>
+                    function showMessDel(id) {
+                        var option = confirm('Are you sure to delete?')
+                        if (option === true) {
+                            window.location.href = 'manage-product?action=delete&productId=' + id;
+                        }
+                    }
+                </script>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

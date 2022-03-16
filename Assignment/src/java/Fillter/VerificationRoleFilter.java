@@ -25,7 +25,7 @@ import model.Account;
  *
  * @author DPV
  */
-@WebFilter(filterName = "VerificationRoleFilter", urlPatterns = {"/manage/*"})
+@WebFilter(filterName = "VerificationRoleFilter", urlPatterns = {"/manage/*","/manage-product"})
 public class VerificationRoleFilter implements Filter {
 
     private static final boolean debug = true;
