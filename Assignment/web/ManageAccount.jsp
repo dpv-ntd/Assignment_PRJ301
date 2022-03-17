@@ -88,7 +88,7 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Name</th>
+                                            <th>Username</th>
                                             <th>Image</th>
                                             <th>Quantity</th>
                                             <th>Price</th>

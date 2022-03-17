@@ -32,12 +32,21 @@
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="${products.getImage_url()}" alt="..." /></div>
                     <div class="col-md-6">
                         <div class="small mb-1">Product</div>
-                        <h1 class="display-5 fw-bolder">${products.getName()}</h1>
+                        <h1 class="display-5 fw-bolder">${products.name}</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$${products.getPrice()*(1 + 0.1)}</span>
-                            <span>$${products.getPrice()}</span>
+                            <span class="text-decoration-line-through">$${products.price*(1 + 0.1)}</span>
+                            <span>$${products.price}</span>
                         </div>
-                        <p class="lead">${products.getDescription()}</p>
+                        <p class="lead">${products.description}</p>
+                        <c:choose>
+                            <c:when test="${products.quantity > 0}">
+                                <div class="fs-5 mb-4">Available: ${products.quantity} products</div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="fs-5 mb-4">This product is no longer available!</div>
+                            </c:otherwise>
+                        </c:choose>
+
                         <div class="d-flex">
                             <a href="add-to-cart?productId=${products.id}" class="btn btn-outline-dark flex-shrink-0" type="button">
                                 <i class="bi-cart-fill me-1"></i>
@@ -84,7 +93,7 @@
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="add-to-cart?productId=${r.id}">Add to cart</a></div>
                                 </div>
 
                             </div>

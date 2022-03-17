@@ -43,7 +43,7 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
         return products;
     }
-    
+
     public ArrayList<Products> getProductsAndCategory() {
         ArrayList<Products> products = new ArrayList<>();
         try {
@@ -72,7 +72,7 @@ public class ProductsDAO extends BaseDAO<Products> {
     public ArrayList<Products> getRelatedProductsByCategoryId(int category_id, String products_id) {
         ArrayList<Products> products = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Product WHERE category_id = ? and id != ?";
+            String sql = "SELECT TOP (4) * FROM Product WHERE category_id = ? and id != ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, category_id);
             statement.setString(2, products_id);
@@ -280,6 +280,17 @@ public class ProductsDAO extends BaseDAO<Products> {
             Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void updateQuantityProducts(int productId, int quantity) {
+        try {
+            String sql = "UPDATE Product SET quantity = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, quantity);
+            statement.setInt(2, productId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

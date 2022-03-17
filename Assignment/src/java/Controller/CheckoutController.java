@@ -7,6 +7,7 @@ package Controller;
 
 import DAL.OrderDAO;
 import DAL.OrderDetailDAO;
+import DAL.ProductsDAO;
 import DAL.ShippingDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -148,6 +149,15 @@ public class CheckoutController extends HttpServlet {
         int orderId = new OrderDAO().InsertAndReturnOrderId(order);
 
         new OrderDetailDAO().saveCart(orderId, carts);
+
+        for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
+            Integer key = entry.getKey();
+            Cart value = entry.getValue();
+
+            int productId = value.getProducts().getId();
+            int quantity = value.getProducts().getQuantity() - value.getQuantity();
+            new ProductsDAO().updateQuantityProducts(productId, quantity);
+        }
         carts.clear();
         response.sendRedirect("thankyou");
     }
