@@ -43,6 +43,31 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
         return products;
     }
+    
+    public ArrayList<Products> getProductsAndCategory() {
+        ArrayList<Products> products = new ArrayList<>();
+        try {
+            String sql = "SELECT Product.id,Product.name,quantity,price,description,image_url,created_date,Category.name as [category] FROM Product "
+                    + "inner join Category on Product.category_id = Category.id";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Products s = new Products();
+                s.setId(rs.getInt("id"));
+                s.setName(rs.getString("name"));
+                s.setQuantity(rs.getInt("quantity"));
+                s.setPrice(rs.getDouble("price"));
+                s.setDescription(rs.getString("description"));
+                s.setImage_url(rs.getString("image_url"));
+                s.setCreated_date(rs.getDate("created_date"));
+                s.setCategory(rs.getString("category"));
+                products.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
 
     public ArrayList<Products> getRelatedProductsByCategoryId(int category_id, String products_id) {
         ArrayList<Products> products = new ArrayList<>();
@@ -232,20 +257,29 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
     }
 
-    public void createProduct(String name, String quantity, String price, String description, String image_url, String category_id) {
+    public void createProduct(Products product) {
         try {
-            String sql = "INSERT INTO Product (name, quantity, price, description, image_url, category_id) VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO [Product]\n"
+                    + "           ([name]\n"
+                    + "           ,[quantity]\n"
+                    + "           ,[price]\n"
+                    + "           ,[description]\n"
+                    + "           ,[image_url]\n"
+                    + "           ,[created_date]\n"
+                    + "           ,[category_id])\n"
+                    + "     VALUES ( ?,?,?,?,?,GETDATE(),?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, "'" + name + "'");
-            statement.setString(2, quantity);
-            statement.setString(3, price);
-            statement.setString(4, "'" + description + "'");
-            statement.setString(5, "'" + image_url + "'");
-            statement.setString(6, category_id);
+            statement.setString(1, product.getName());
+            statement.setInt(2, product.getQuantity());
+            statement.setDouble(3, product.getPrice());
+            statement.setString(4, product.getDescription());
+            statement.setString(5, product.getImage_url());
+            statement.setInt(6, product.getCategory_id());
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 
 }

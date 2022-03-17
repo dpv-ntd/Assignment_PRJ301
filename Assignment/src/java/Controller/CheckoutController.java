@@ -87,6 +87,7 @@ public class CheckoutController extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
+        session.setAttribute("account", account);
         session.setAttribute("totalAmount", totalAmount);
         session.setAttribute("carts", carts);
         session.setAttribute("urlPrev", "checkout");

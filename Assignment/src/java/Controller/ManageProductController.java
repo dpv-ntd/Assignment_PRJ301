@@ -62,7 +62,7 @@ public class ManageProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductsDAO dao = new ProductsDAO();
-        ArrayList<Products> listProduct = dao.getProducts();
+        ArrayList<Products> listProduct = dao.getProductsAndCategory();
         request.setAttribute("listProduct", listProduct);
         request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
     }
@@ -87,7 +87,6 @@ public class ManageProductController extends HttpServlet {
                 dao.deleteProduct(productId);
                 response.sendRedirect("manage-product");
                 return;
-
         }
     }
 

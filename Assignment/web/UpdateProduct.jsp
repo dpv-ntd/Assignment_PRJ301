@@ -130,19 +130,19 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="name" class="form-label">Name</label>
-                                                    <input type="text" class="form-control" name="name" value="${product.name}">
+                                                    <input type="text" class="form-control" name="name" value="${product.name}" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="name" class="form-label">Quantity</label>
-                                                    <input type="text" class="form-control" name="quantity" value="${product.quantity}">
+                                                    <input type="number" class="form-control" name="quantity" value="${product.quantity}" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="phone" class="form-label">Price</label>
-                                                    <input type="text" class="form-control" name="price" value="${product.price}">
+                                                    <input type="number" step="any" class="form-control" name="price" value="${product.price}" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="address" class="form-label">Description</label>
-                                                    <input type="text" class="form-control" name="description" value="${product.description}">
+                                                    <textarea type="text" class="form-control" name="description" value="${product.description}"></textarea>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="address" class="form-label">Image</label>
@@ -153,8 +153,12 @@
                                                     <input type="text" class="form-control" name="created_date" value="${product.created_date}" readonly>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="address" class="form-label">Category</label>
-                                                    <input type="text" class="form-control" name="category_id" value="${product.category_id}">
+                                                    <label for="category" class="form-label">Category</label>
+                                                    <select id="category" class="form-select" name="categoryIdChoose">
+                                                        <c:forEach items="${listCategory}" var="c">
+                                                            <option value="${c.id}" ${choose == c.id ? "selected":""}>${c.name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
 

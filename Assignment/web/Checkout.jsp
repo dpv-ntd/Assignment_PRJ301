@@ -46,15 +46,19 @@
                                 <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" >
+                                        <input type="text" class="form-control" id="name" name="name"value="${account.displayName}" >
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Phone</label>
-                                        <input type="text" class="form-control" id="phone" name="phone">
+                                        <input type="text" class="form-control" id="phone" name="phone" value="${account.phone}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" value="${account.email}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address">
+                                        <input type="text" class="form-control" id="address" name="address" value="${account.address}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="note" class="form-label">Note</label>

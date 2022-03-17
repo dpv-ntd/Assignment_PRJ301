@@ -8,11 +8,14 @@ package Controller;
 import DAL.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Category;
+import model.Products;
 
 /**
  *
@@ -60,6 +63,9 @@ public class AddProductController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        ProductsDAO dao = new ProductsDAO();
+        ArrayList<Category> listCategory = dao.getCategory();
+        request.setAttribute("listCategory", listCategory);
         request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
     }
 
@@ -74,16 +80,24 @@ public class AddProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String name = request.getParameter("name");
-        String quantity = request.getParameter("quantity");
-        String price = request.getParameter("price");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        double price = Double.parseDouble(request.getParameter("price"));
         String description = request.getParameter("description");
         String image_url = request.getParameter("image_url");
-        String category_id = request.getParameter("category_id");
-        
+        int category_id = Integer.parseInt(request.getParameter("categoryIdChoose"));
+
+        Products product = new Products();
+        product.setName(name);
+        product.setQuantity(quantity);
+        product.setPrice(price);
+        product.setDescription(description);
+        product.setImage_url(image_url);
+        product.setCategory_id(category_id);
+
         ProductsDAO dao = new ProductsDAO();
-        dao.createProduct(name, quantity, price, description, image_url, category_id);
+        dao.createProduct(product);
         response.sendRedirect("manage-product");
     }
 

@@ -21,9 +21,31 @@ public class Products {
     private String image_url;
     private Date created_date;
     private int category_id;
+    private String category;
 
     public Products() {
     }
+
+    public Products(int id, String name, int quantity, double price, String description, String image_url, Date created_date, int category_id, String category) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.description = description;
+        this.image_url = image_url;
+        this.created_date = created_date;
+        this.category_id = category_id;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
 
     public Products(int id, String name, int quantity, double price, String description, String image_url, Date created_date, int category_id) {
         this.id = id;

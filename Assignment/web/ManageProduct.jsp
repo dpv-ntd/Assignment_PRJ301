@@ -143,7 +143,7 @@
                                                 <td>${p.quantity}</td>
                                                 <td>${p.price}</td>
                                                 <td>${p.description}</td>
-                                                <td>${p.category_id}</td>
+                                                <td>${p.category}</td>
                                                 <td>
                                                     <div class="d-flex my-4">
                                                         <a href="update-product?productId=${p.id}" class="btn btn-primary flex-shrink-0 me-2">Update</a>

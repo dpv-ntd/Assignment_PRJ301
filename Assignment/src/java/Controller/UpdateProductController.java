@@ -8,11 +8,13 @@ package Controller;
 import DAL.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Category;
 import model.Products;
 
 /**
@@ -39,7 +41,7 @@ public class UpdateProductController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateProductController</title>");            
+            out.println("<title>Servlet UpdateProductController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateProductController at " + request.getContextPath() + "</h1>");
@@ -63,9 +65,14 @@ public class UpdateProductController extends HttpServlet {
         String productId = request.getParameter("productId");
         ProductsDAO dao = new ProductsDAO();
         Products product = dao.getProductsByProductsId(Integer.parseInt(productId));
+        int categoryId = product.getCategory_id();
+        ArrayList<Category> listCategory = dao.getCategory();
+        
+        request.setAttribute("choose", categoryId);
+        request.setAttribute("listCategory", listCategory);
         request.setAttribute("product", product);
         request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -79,15 +86,15 @@ public class UpdateProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String id = request.getParameter("id");
         String name = request.getParameter("name");
         String quantity = request.getParameter("quantity");
         String price = request.getParameter("price");
         String description = request.getParameter("description");
         String image_url = request.getParameter("image_url");
-        String category_id = request.getParameter("category_id");
-        
+        String category_id = request.getParameter("categoryIdChoose");
+
         ProductsDAO dao = new ProductsDAO();
         dao.updateProduct(id, name, quantity, price, description, image_url, category_id);
         response.sendRedirect("manage-product");
