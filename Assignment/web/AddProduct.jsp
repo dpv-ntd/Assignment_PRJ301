@@ -114,58 +114,56 @@
 
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                Products
-                                <div class="d-flex my-2">
-                                    <a href="add-product" class="btn btn-primary flex-shrink-0">+ Add New</a>
-                                </div>
+                                <i class="fas fa-chart-bar me-1"></i>
+                                Create Product
                             </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Image</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Description</th>
-                                            <th>Category</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${listProduct}" var="p">
-                                            <tr>
-                                                <td>${p.id}</td>
-                                                <td>${p.name}</td>
-                                                <td><img src="${p.image_url}" alt="" width="80"/></td>
-                                                <td>${p.quantity}</td>
-                                                <td>${p.price}</td>
-                                                <td>${p.description}</td>
-                                                <td>${p.category_id}</td>
-                                                <td>
-                                                    <div class="d-flex my-4">
-                                                        <a href="update-product?productId=${p.id}" class="btn btn-primary flex-shrink-0 me-2">Update</a>
-                                                        <a href="#" onclick="showMessDel(${p.id})" class="btn btn-danger flex-shrink-0">Delete</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
+                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
+                                <form action="update-product" method="post">
+                                    <div class="row">
+
+                                        <div class="d-flex justify-content-center">
+                                            <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
+
+                                                <div class="mb-3">
+                                                    <label for="name" class="form-label">Name</label>
+                                                    <input type="text" class="form-control" name="name" value="${product.name}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="name" class="form-label">Quantity</label>
+                                                    <input type="text" class="form-control" name="quantity" value="${product.quantity}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="phone" class="form-label">Price</label>
+                                                    <input type="text" class="form-control" name="price" value="${product.price}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="address" class="form-label">Description</label>
+                                                    <input type="text" class="form-control" name="description" value="${product.description}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="address" class="form-label">Image</label>
+                                                    <input type="text" class="form-control" name="image_url" value="${product.image_url}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="address" class="form-label">Category</label>
+                                                    <input type="text" class="form-control" name="category_id" value="${product.category_id}">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group btn-lg text-center py-3">
+                                            <button class="btn btn-primary btn-block w-50">Save</button>
+                                        </div>
+
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
+
                     </div>
                 </main>
-                <script>
-                    function showMessDel(id) {
-                        var option = confirm('Are you sure to delete?')
-                        if (option === true) {
-                            window.location.href = 'delete-product?productId=' + id;
-                        }
-                    }
-                </script>
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

@@ -215,5 +215,37 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
     }
 
+    public void updateProduct(String id, String name, String quantity, String price, String description, String image_url, String category_id) {
+        try {
+            String sql = "UPDATE Product SET name = ?, quantity = ?, price = ?, description = ?, image_url = ?, category_id = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setString(2, quantity);
+            statement.setString(3, price);
+            statement.setString(4, description);
+            statement.setString(5, image_url);
+            statement.setString(6, category_id);
+            statement.setString(7, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void createProduct(String name, String quantity, String price, String description, String image_url, String category_id) {
+        try {
+            String sql = "INSERT INTO Product (name, quantity, price, description, image_url, category_id) VALUES(?,?,?,?,?,?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "'" + name + "'");
+            statement.setString(2, quantity);
+            statement.setString(3, price);
+            statement.setString(4, "'" + description + "'");
+            statement.setString(5, "'" + image_url + "'");
+            statement.setString(6, category_id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

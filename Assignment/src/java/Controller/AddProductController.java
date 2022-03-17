@@ -13,14 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Products;
 
 /**
  *
  * @author DPV
  */
-@WebServlet(name = "UpdateProductController", urlPatterns = {"/update-product"})
-public class UpdateProductController extends HttpServlet {
+@WebServlet(name = "AddProductController", urlPatterns = {"/add-product"})
+public class AddProductController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +38,10 @@ public class UpdateProductController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateProductController</title>");            
+            out.println("<title>Servlet AddProductController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateProductController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddProductController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,12 +59,8 @@ public class UpdateProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String productId = request.getParameter("productId");
-        ProductsDAO dao = new ProductsDAO();
-        Products product = dao.getProductsByProductsId(Integer.parseInt(productId));
-        request.setAttribute("product", product);
-        request.getRequestDispatcher("UpdateProduct.jsp").forward(request, response);
         
+        request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
     }
 
     /**
@@ -80,7 +75,6 @@ public class UpdateProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String id = request.getParameter("id");
         String name = request.getParameter("name");
         String quantity = request.getParameter("quantity");
         String price = request.getParameter("price");
@@ -89,7 +83,7 @@ public class UpdateProductController extends HttpServlet {
         String category_id = request.getParameter("category_id");
         
         ProductsDAO dao = new ProductsDAO();
-        dao.updateProduct(id, name, quantity, price, description, image_url, category_id);
+        dao.createProduct(name, quantity, price, description, image_url, category_id);
         response.sendRedirect("manage-product");
     }
 
