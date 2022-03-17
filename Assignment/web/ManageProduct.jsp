@@ -143,7 +143,7 @@
                                                 <td>${p.category_id}</td>
                                                 <td>
                                                     <div class="d-flex my-4">
-                                                        <a href="update?id=" class="btn btn-primary flex-shrink-0 me-2">Update</a>
+                                                        <a href="update-product?id=${p.id}" class="btn btn-primary flex-shrink-0 me-2">Update</a>
                                                         <a href="#" onclick="showMessDel(${p.id})" class="btn btn-danger flex-shrink-0">Delete</a>
                                                     </div>
                                                 </td>
@@ -159,7 +159,7 @@
                     function showMessDel(id) {
                         var option = confirm('Are you sure to delete?')
                         if (option === true) {
-                            window.location.href = 'manage-product?action=delete&productId=' + id;
+                            window.location.href = 'delete-product?productId=' + id;
                         }
                     }
                 </script>
