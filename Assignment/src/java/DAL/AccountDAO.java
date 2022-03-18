@@ -77,6 +77,7 @@ public class AccountDAO extends BaseDAO<Account> {
                 s.setPhone(rs.getString("phone"));
                 s.setAddress(rs.getString("address"));
                 s.setRole(rs.getString("role"));
+                s.setBlock(rs.getString("block"));
                 return s;
             }
         } catch (SQLException ex) {
@@ -154,14 +155,11 @@ public class AccountDAO extends BaseDAO<Account> {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, block);
             statement.setInt(2, accountId);
-            
+
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static void main(String[] args) {
-        new AccountDAO().bannedAccount(5, "yes");
-    }
+
 }

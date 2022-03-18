@@ -73,28 +73,28 @@
                                             <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
 
                                                 <div class="mb-3">
-                                                    <label for="name" class="form-label">ID</label>
+                                                    <label class="form-label">ID</label>
                                                     <input type="text" class="form-control" name="id" readonly value="${account.id}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="name" class="form-label">Username</label>
+                                                    <label class="form-label">Username</label>
                                                     <input type="text" class="form-control" name="name" value="${account.username}" required>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="name" class="form-label">Name</label>
-                                                    <input type="number" class="form-control" name="quantity" value="${account.displayName}" required>
+                                                    <label class="form-label">Name</label>
+                                                    <input type="text" class="form-control" name="name" value="${account.displayName}" required>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="phone" class="form-label">Address</label>
-                                                    <input type="number" step="any" class="form-control" name="price" value="${product.address}" required>
+                                                    <label class="form-label">Address</label>
+                                                    <input type="text" class="form-control" name="address" value="${account.address}" required>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="address" class="form-label">Email</label>
-                                                    <textarea class="form-control" name="description" >${account.email}</textarea>
+                                                    <label class="form-label">Email</label>
+                                                    <input type="email" step="any" class="form-control" name="email" value="${account.email}">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="address" class="form-label">Phone</label>
-                                                    <textarea class="form-control" name="description" >${account.phone}</textarea>
+                                                    <label class="form-label">Phone</label>
+                                                    <input type="tel" class="form-control" name="phone" value="${account.phone}" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="category" class="form-label">Role</label>
