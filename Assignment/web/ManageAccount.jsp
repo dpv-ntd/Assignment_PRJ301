@@ -63,9 +63,9 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Products
+                                Accounts
                                 <div class="d-flex my-2">
-                                    <a href="add-product" class="btn btn-primary flex-shrink-0">+ Add New</a>
+                                    <a href="add-account" class="btn btn-primary flex-shrink-0">+ Add New</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -109,7 +109,7 @@
                                                     </c:choose>
                                                 </td>
                                                 <td>
-                                                    <a href="update-product?productId=${p.id}" class="btn btn-primary me-2">Update</a>
+                                                    <a href="update-account?accountId=${ac.id}" class="btn btn-primary me-2">Update</a>
                                                     <c:choose>
                                                         <c:when test="${ac.block.equals('no')}">
                                                             <a href="#" onclick="showMessDel(${ac.id}, 'yes')" class="btn btn-danger"><i class="bi bi-lock-fill"></i> Lock</a>

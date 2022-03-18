@@ -92,9 +92,10 @@
                                                     <label for="address" class="form-label">Description</label>
                                                     <textarea class="form-control" name="description" >${product.description}</textarea>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label for="address" class="form-label">Image</label>
-                                                    <input type="text" class="form-control" name="image_url" value="${product.image_url}">
+                                                <label class="form-label">Image</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon3">https://</span>
+                                                    <input type="text" name="image_url" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${product.image_url}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="address" class="form-label">Created Date</label>

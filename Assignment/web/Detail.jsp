@@ -5,6 +5,7 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +35,7 @@
                         <div class="small mb-1">Product</div>
                         <h1 class="display-5 fw-bolder">${products.name}</h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$${products.price*(1 + 0.1)}</span>
+                            <span class="text-decoration-line-through"><fmt:formatNumber value="${products.price*(1 + 0.1)}" type="currency"/></span>
                             <span>$${products.price}</span>
                         </div>
                         <p class="lead">${products.description}</p>

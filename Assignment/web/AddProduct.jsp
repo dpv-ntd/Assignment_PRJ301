@@ -88,9 +88,10 @@
                                                     <label class="form-label">Description</label>
                                                     <textarea type="text" class="form-control" name="description"></textarea>
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Image</label>
-                                                    <input type="text" class="form-control" name="image_url">
+                                                <label class="form-label">Image</label>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text" id="basic-addon3">https://</span>
+                                                    <input type="text" name="image_url" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${product.image_url}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="category" class="form-label">Category</label>
