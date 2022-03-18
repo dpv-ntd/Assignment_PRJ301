@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="address" class="form-label">Role</label>
-                                    <input type="text" class="form-control" name="address" value="${role.equals('ADMIN')?"Manager":"Customer"}" readonly>
+                                    <input type="text" class="form-control" name="address" value="${role}" readonly>
                                 </div>
                             </div>
 
