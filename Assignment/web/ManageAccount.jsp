@@ -30,22 +30,7 @@
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             </form>
             <!-- Navbar-->
-            <c:if test="${sessionScope.account != null}">
-                <div class="ms-lg-2">
-                    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i> ${sessionScope.account.username}</a>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="profiles">Profiles</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="manage">Manage</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </c:if>
+            <%@include file="DashboardNavbar.jsp" %>
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -72,7 +57,7 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        
+
                         <%@include file="DashboardMainButton.jsp" %>
 
                         <div class="card mb-4">
@@ -84,34 +69,56 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="text-center">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
                                             <th>Username</th>
-                                            <th>Image</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Description</th>
-                                            <th>Category</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${listProduct}" var="p">
+                                        <c:forEach items="${account}" var="ac">
                                             <tr>
-                                                <td>${p.id}</td>
-                                                <td>${p.name}</td>
-                                                <td><img src="${p.image_url}" alt="" width="80"/></td>
-                                                <td>${p.quantity}</td>
-                                                <td>${p.price}</td>
-                                                <td>${p.description}</td>
-                                                <td>${p.category}</td>
+                                                <td>${ac.id}</td>
+                                                <td>${ac.username}</td>
+                                                <td>${ac.displayName}</td>
+                                                <td>${ac.email}</td>
                                                 <td>
-                                                    <div class="d-flex my-4">
-                                                        <a href="update-product?productId=${p.id}" class="btn btn-primary flex-shrink-0 me-2">Update</a>
-                                                        <a href="#" onclick="showMessDel(${p.id})" class="btn btn-danger flex-shrink-0">Delete</a>
-                                                    </div>
+                                                    <c:choose>
+                                                        <c:when test="${ac.role.equals('Admin')}">
+                                                            <i class="bi bi-person-check-fill"></i> ${ac.role}
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <i class="bi bi-people-fill"></i> ${ac.role}
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td>
+                                                    <c:choose>
+                                                        <c:when test="${ac.block.equals('no')}">
+                                                            <i class="bi bi-unlock-fill"></i> Unlocked
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <i class="bi bi-lock-fill"></i> Locked
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td>
+                                                    <a href="update-product?productId=${p.id}" class="btn btn-primary me-2">Update</a>
+                                                    <c:choose>
+                                                        <c:when test="${ac.block.equals('no')}">
+                                                            <a href="#" onclick="showMessDel(${ac.id}, 'yes')" class="btn btn-danger"><i class="bi bi-lock-fill"></i> Lock</a>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <a href="#" onclick="showMessDel(${ac.id}, 'no')" class="btn btn-success"><i class="bi bi-unlock-fill"></i> Unlock</a>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -122,10 +129,10 @@
                     </div>
                 </main>
                 <script>
-                    function showMessDel(id) {
-                        var option = confirm('Are you sure to delete?')
+                    function showMessDel(id, block) {
+                        var option = confirm('Are you sure?')
                         if (option === true) {
-                            window.location.href = 'delete-product?productId=' + id;
+                            window.location.href = 'banned-account?accountId=' + id + '&block=' + block;
                         }
                     }
                 </script>

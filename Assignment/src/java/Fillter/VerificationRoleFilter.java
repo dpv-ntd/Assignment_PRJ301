@@ -109,7 +109,7 @@ public class VerificationRoleFilter implements Filter {
 
         Account account = (Account) session.getAttribute("account");
         if (account != null) {
-            if (account.getRole().equals("ADMIN")) {
+            if (account.getRole().equals("Admin")) {
                 chain.doFilter(request, response);
             } else {
                 res.sendRedirect("home");

@@ -19,11 +19,12 @@ public class Account {
     private String email;
     private String phone;
     private String role;
+    private String block;
 
     public Account() {
     }
 
-    public Account(int id, String username, String password, String displayName, String address, String email, String phone, String role) {
+    public Account(int id, String username, String password, String displayName, String address, String email, String phone, String role, String block) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -32,6 +33,7 @@ public class Account {
         this.email = email;
         this.phone = phone;
         this.role = role;
+        this.block = block;
     }
 
     public int getId() {
@@ -98,11 +100,17 @@ public class Account {
         this.role = role;
     }
 
+    public String getBlock() {
+        return block;
+    }
+
+    public void setBlock(String block) {
+        this.block = block;
+    }
+
     @Override
     public String toString() {
-        return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", displayName=" + displayName + ", address=" + address + ", email=" + email + ", phone=" + phone + ", role=" + role + '}';
+        return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", displayName=" + displayName + ", address=" + address + ", email=" + email + ", phone=" + phone + ", role=" + role + ", block=" + block + '}';
     }
-    
-    
 
 }

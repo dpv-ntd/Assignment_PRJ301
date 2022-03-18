@@ -5,47 +5,27 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
- * @author MyPC
+ * @author DPV
  */
-public class OrderDetail {
+public class Purchase {
 
-    private int id;
-    private int order_id;
     private String productName;
     private String productImage;
     private double productPrice;
-    private int quantity;
     private int productId;
 
-    public OrderDetail() {
+    public Purchase() {
     }
 
-    public OrderDetail(int id, int order_id, String productName, String productImage, double productPrice, int quantity, int productId) {
-        this.id = id;
-        this.order_id = order_id;
+    public Purchase(String productName, String productImage, double productPrice, int productId) {
         this.productName = productName;
         this.productImage = productImage;
         this.productPrice = productPrice;
-        this.quantity = quantity;
         this.productId = productId;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(int order_id) {
-        this.order_id = order_id;
     }
 
     public String getProductName() {
@@ -72,14 +52,6 @@ public class OrderDetail {
         this.productPrice = productPrice;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public int getProductId() {
         return productId;
     }
@@ -90,7 +62,9 @@ public class OrderDetail {
 
     @Override
     public String toString() {
-        return "OrderDetail{" + "id=" + id + ", order_id=" + order_id + ", productName=" + productName + ", productImage=" + productImage + ", productPrice=" + productPrice + ", quantity=" + quantity + ", productId=" + productId + '}';
+        return "Purchase{" + "productName=" + productName + ", productImage=" + productImage + ", productPrice=" + productPrice + ", productId=" + productId + '}';
     }
+    
+    
 
 }

@@ -116,6 +116,11 @@ public class LoginController extends HttpServlet {
         Account account = dao.getAccount(username, password);
 
         if (account != null) {
+            if (account.getBlock().equals("yes")) {
+                request.setAttribute("notify", "Your account has been banned.");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                return;
+            }
             if (remember != null) {
                 Cookie c_user = new Cookie("username", username);
                 Cookie c_pass = new Cookie("password", password);
@@ -125,7 +130,7 @@ public class LoginController extends HttpServlet {
                 response.addCookie(c_user);
             }
             session.setAttribute("account", account);
-            
+
             String urlPrev = (String) request.getSession().getAttribute("urlPrev");
             if (urlPrev == null) {
                 urlPrev = "home";

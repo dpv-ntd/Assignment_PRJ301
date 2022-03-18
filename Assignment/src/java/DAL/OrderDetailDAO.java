@@ -23,17 +23,18 @@ public class OrderDetailDAO extends BaseDAO<OrderDetail> {
 
     public void saveCart(int orderId, Map<Integer, Cart> carts) {
         try {
-            String sql = "INSERT INTO OrderDetail(order_id, productName, productImage, productPrice, quantity) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO OrderDetail(order_id, productName, productImage, productPrice, quantity, productId) VALUES (?,?,?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, orderId);
             for (Map.Entry<Integer, Cart> entry : carts.entrySet()) {
                 Integer key = entry.getKey();
                 Cart value = entry.getValue();
-
+                
                 statement.setString(2, value.getProducts().getName());
                 statement.setString(3, value.getProducts().getImage_url());
                 statement.setDouble(4, value.getProducts().getPrice());
                 statement.setInt(5, value.getQuantity());
+                statement.setInt(6, value.getProducts().getId());
                 statement.executeUpdate();
             }
 

@@ -48,9 +48,13 @@
                         </c:choose>
 
                         <div class="d-flex">
-                            <a href="add-to-cart?productId=${products.id}" class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <a href="add-to-cart?productId=${products.id}" class="btn btn-outline-dark flex-shrink-0 me-2" type="button">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
+                            </a>
+                            <a href="add-to-cart?action=buynow&productId=${products.id}" class="btn btn-outline-danger flex-shrink-0" type="button">
+                                <i class="bi-cart-fill me-1"></i>
+                                Buy Now
                             </a>
                         </div>
                     </div>

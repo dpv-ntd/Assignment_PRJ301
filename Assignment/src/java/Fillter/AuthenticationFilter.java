@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author MyPC
  */
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/checkout", "/manage", "/manage-product"})
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/checkout", "/manage", "/purchase","/profiles"})
 public class AuthenticationFilter implements Filter {
 
     private static final boolean debug = true;
@@ -111,7 +111,7 @@ public class AuthenticationFilter implements Filter {
 
         Account account = (Account) session.getAttribute("account");
 
-        if (account != null) {
+        if (account != null && account.getBlock().equals("no")) {
             chain.doFilter(request, response);
         } else {
             res.sendRedirect("login");

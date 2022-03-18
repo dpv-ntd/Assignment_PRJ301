@@ -37,6 +37,7 @@ public class AccountDAO extends BaseDAO<Account> {
                 s.setEmail(rs.getString("email"));
                 s.setPhone(rs.getString("phone"));
                 s.setRole(rs.getString("role"));
+                s.setBlock(rs.getString("block"));
                 return s;
             }
         } catch (SQLException ex) {
@@ -108,14 +109,9 @@ public class AccountDAO extends BaseDAO<Account> {
         return null;
     }
 
-    public static void main(String[] args) {
-        AccountDAO dao = new AccountDAO();
-        dao.updateProfiles("1", "dpv1", "dpv1@dpv.com", "012345678", "tn1");
-    }
-
     public void createAccount(String username, String password) {
         try {
-            String sql = "INSERT INTO Account (username, password) VALUES(?,?)";
+            String sql = "INSERT INTO Account (username, password, role, block) VALUES(?,?,'Customer','no')";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             statement.setString(2, password);
@@ -123,5 +119,49 @@ public class AccountDAO extends BaseDAO<Account> {
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public ArrayList<Account> getAllAccount() {
+        ArrayList<Account> account = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Account ORDER BY id";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Account s = new Account();
+                s.setId(rs.getInt("id"));
+                s.setUsername(rs.getString("username"));
+                s.setPassword(rs.getString("password"));
+
+                s.setDisplayName(rs.getString("displayName"));
+                s.setAddress(rs.getString("address"));
+                s.setEmail(rs.getString("email"));
+                s.setPhone(rs.getString("phone"));
+                s.setRole(rs.getString("role"));
+                s.setBlock(rs.getString("block"));
+
+                account.add(s);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return account;
+    }
+
+    public void bannedAccount(int accountId, String block) {
+        try {
+            String sql = "UPDATE Account SET block = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, block);
+            statement.setInt(2, accountId);
+            
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void main(String[] args) {
+        new AccountDAO().bannedAccount(5, "yes");
     }
 }
