@@ -82,7 +82,7 @@
                                             </c:forEach>
                                             <tr>
                                                 <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                                                <td class="text-black">$${totalAmount}</td>
+                                                <td class="text-black">$0</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-black font-weight-bold"><strong>Order Total</strong></td>

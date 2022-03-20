@@ -98,9 +98,10 @@ public class UpdateProductController extends HttpServlet {
         String description = request.getParameter("description");
         String image_url = request.getParameter("image_url");
         String category_id = request.getParameter("categoryIdChoose");
+        String created_date = request.getParameter("created_date");
 
         ProductsDAO dao = new ProductsDAO();
-        dao.updateProduct(id, name, quantity, price, description, image_url, category_id);
+        dao.updateProduct(id, name, quantity, price, description, image_url, category_id, created_date);
         response.sendRedirect("manage-product");
     }
 

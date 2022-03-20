@@ -54,7 +54,7 @@
                                 </tr>
                             </thead>
                             <c:forEach items="${sessionScope.carts}" var="c">
-                                <form action="update-cart">
+                                <form action="update-cart" method="get">
                                     <tr>
                                         <td>${c.key}</td>
                                         <td><a href="detail?productId=${c.value.products.id}"><img src="${c.value.products.image_url}" width="80"/></a></td>
@@ -86,7 +86,7 @@
                                                 <span class="text-black">Subtotal</span>
                                             </div>
                                             <div class="col-md-6 text-end">
-                                                <strong class="text-black">$${totalAmount}</strong>
+                                                <strong class="text-black">$0</strong>
                                             </div>
                                         </div>
                                         <div class="row mb-5">

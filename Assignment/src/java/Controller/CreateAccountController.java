@@ -17,10 +17,10 @@ import model.Account;
 
 /**
  *
- * @author MyPC
+ * @author DPV
  */
-@WebServlet(name = "RegisterController", urlPatterns = {"/register"})
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "CreateAccountController", urlPatterns = {"/create-account"})
+public class CreateAccountController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +39,10 @@ public class RegisterController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterController</title>");
+            out.println("<title>Servlet CreateAccountController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateAccountController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +60,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("Register.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -74,31 +74,21 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String repassword = request.getParameter("repassword");
-        String success = null;
+        String rolechoose = request.getParameter("rolechoose");
         String error = null;
-        AccountDAO dao = new AccountDAO();
-        Account account = dao.getAccountByUsername(username);
-        
-        if (!password.equals(repassword)) {
-            error = "Confirm password does not match.";
-            request.setAttribute("error", error);
-            request.getRequestDispatcher("Register.jsp").forward(request, response);
-            return;
-        }
+        Account account = new AccountDAO().getAccountByUsername(username);
         if (account != null) {
-            error = "This account already exists.";
-            request.setAttribute("error", error);
-            request.getRequestDispatcher("Register.jsp").forward(request, response);
+            error = "Username is not available";
+            request.getSession().setAttribute("error", error);
+            response.sendRedirect("manage-account");
             return;
         }
-
-        dao.createAccount(username, password);
-        success = "Sign Up Success";
-        request.setAttribute("success", success);
-        request.getRequestDispatcher("Register.jsp").forward(request, response);
+        request.getSession().setAttribute("error", error);
+        new AccountDAO().createAccount(username, password, rolechoose);
+        response.sendRedirect("manage-account");
     }
 
     /**

@@ -240,9 +240,9 @@ public class ProductsDAO extends BaseDAO<Products> {
         }
     }
 
-    public void updateProduct(String id, String name, String quantity, String price, String description, String image_url, String category_id) {
+    public void updateProduct(String id, String name, String quantity, String price, String description, String image_url, String category_id, String created_date) {
         try {
-            String sql = "UPDATE Product SET name = ?, quantity = ?, price = ?, description = ?, image_url = ?, category_id = ? WHERE id = ?";
+            String sql = "UPDATE Product SET name = ?, quantity = ?, price = ?, description = ?, image_url = ?, category_id = ? , created_date = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
             statement.setString(2, quantity);
@@ -250,7 +250,8 @@ public class ProductsDAO extends BaseDAO<Products> {
             statement.setString(4, description);
             statement.setString(5, image_url);
             statement.setString(6, category_id);
-            statement.setString(7, id);
+            statement.setString(7, created_date);
+            statement.setString(8, id);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);

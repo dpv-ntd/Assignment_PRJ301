@@ -23,7 +23,7 @@ public abstract class BaseDAO<T> {
     public BaseDAO() {
         try {
             String user = "sa";
-            String pass = "123456";
+            String pass = "sa";
             String url = "jdbc:sqlserver://localhost:1433;databaseName=Assignment_HE153430";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);

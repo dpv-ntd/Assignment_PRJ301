@@ -68,7 +68,6 @@
                             <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
                                 <form action="update-account" method="post">
                                     <div class="row">
-
                                         <div class="d-flex justify-content-center">
                                             <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
 
@@ -82,7 +81,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Name</label>
-                                                    <input type="text" class="form-control" name="name" value="${account.displayName}" required>
+                                                    <input type="text" class="form-control" name="displayName" value="${account.displayName}" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Address</label>
@@ -97,10 +96,10 @@
                                                     <input type="tel" class="form-control" name="phone" value="${account.phone}" required>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="category" class="form-label">Role</label>
+                                                    <label class="form-label">Role</label>
                                                     <select id="category" class="form-select" name="rolechoose">
-                                                        <option value="Admin" ${role == account.role ? "selected":""}>Admin</option>
-                                                        <option value="Customer" ${role == account.role ? "selected":""}>Customer</option>
+                                                        <option value="Admin" ${role.equals('Admin') ? "selected":""}>Admin</option>
+                                                        <option value="Customer" ${role.equals('Customer') ? "selected":""}>Customer</option>
                                                     </select>
                                                 </div>
                                             </div>

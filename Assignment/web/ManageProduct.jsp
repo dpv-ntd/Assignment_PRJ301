@@ -63,9 +63,61 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Products
+                                List of products
                                 <div class="d-flex my-2">
-                                    <a href="add-product" class="btn btn-primary flex-shrink-0"><i class="bi bi-plus-circle-fill"></i> Add New</a>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-product">
+                                        <i class="bi bi-plus-circle-fill"></i> Add New
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="add-product" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="add-account"> Create Product</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="add-product" method="post">
+                                                        <div class="row">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Name</label>
+                                                                <input type="text" class="form-control" name="name">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Quantity</label>
+                                                                <input type="number" class="form-control" name="quantity">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Price</label>
+                                                                <input type="number" step="any" class="form-control" name="price">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Description</label>
+                                                                <textarea type="text" class="form-control" name="description"></textarea>
+                                                            </div>
+                                                            <label class="form-label">Image</label>
+                                                            <div class="input-group mb-3">
+                                                                <span class="input-group-text" id="basic-addon3">https://</span>
+                                                                <input type="text" name="image_url" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="${product.image_url}">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="category" class="form-label">Category</label>
+                                                                <select id="category" class="form-select" name="categoryIdChoose">
+                                                                    <c:forEach items="${listCategory}" var="c">
+                                                                        <option value="${c.id}">${c.name}</option>
+                                                                    </c:forEach>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">

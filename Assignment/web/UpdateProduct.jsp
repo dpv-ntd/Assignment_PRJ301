@@ -63,7 +63,7 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-chart-bar me-1"></i>
-                                Update Product
+                                Edit products
                             </div>
                             <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
                                 <form action="update-product" method="post">
@@ -99,7 +99,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="address" class="form-label">Created Date</label>
-                                                    <input type="text" class="form-control" name="created_date" value="${product.created_date}" readonly>
+                                                    <input type="date" class="form-control" name="created_date" value="${product.created_date}">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="category" class="form-label">Category</label>

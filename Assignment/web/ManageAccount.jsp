@@ -59,13 +59,54 @@
                         </ol>
 
                         <%@include file="DashboardMainButton.jsp" %>
-
+                        <div ${error == null ? "hidden":""} class="alert alert-danger text-center px-5 w-100" role="alert" >
+                            ${error}
+                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Accounts
+                                Accounts List
                                 <div class="d-flex my-2">
-                                    <a href="add-account" class="btn btn-primary flex-shrink-0"><i class="bi bi-plus-circle-fill"></i> Add New</a>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-account">
+                                        <i class="bi bi-plus-circle-fill"></i> Add New
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="add-account" tabindex="-1" aria-labelledby="add-account" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="add-account">Create Accounts</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="create-account" method="post">
+                                                        <div class="row">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Username</label>
+                                                                <input type="text" class="form-control" name="username" value="" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Password</label>
+                                                                <input type="text" class="form-control" name="password" value="" required>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="category" class="form-label">Role</label>
+                                                                <select id="category" class="form-select" name="rolechoose">
+                                                                    <option value="Admin">Admin</option>
+                                                                    <option value="Customer">Customer</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-body">

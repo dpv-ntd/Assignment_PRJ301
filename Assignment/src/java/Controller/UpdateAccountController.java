@@ -81,7 +81,15 @@ public class UpdateAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String displayName = request.getParameter("displayName");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String role = request.getParameter("rolechoose");
+        new AccountDAO().updateAccount(id, name, email, phone, address, role);
+        response.sendRedirect("manage-account");
     }
 
     /**

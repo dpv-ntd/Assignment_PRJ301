@@ -62,11 +62,7 @@ public class AddProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        ProductsDAO dao = new ProductsDAO();
-        ArrayList<Category> listCategory = dao.getCategory();
-        request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
+        response.sendRedirect("manage-product");
     }
 
     /**
@@ -80,6 +76,9 @@ public class AddProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         String name = request.getParameter("name");
         int quantity = Integer.parseInt(request.getParameter("quantity"));

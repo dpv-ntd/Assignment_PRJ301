@@ -61,6 +61,22 @@ public class AccountDAO extends BaseDAO<Account> {
         }
     }
 
+    public void updateAccount(String id, String name, String email, String phone, String address, String role) {
+        try {
+            String sql = "UPDATE Account SET displayName = ?, address = ?, email = ?, phone = ? , role = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, name);
+            statement.setString(2, address);
+            statement.setString(3, email);
+            statement.setString(4, phone);
+            statement.setString(5, role);
+            statement.setString(6, id);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public Account getAccountById(String id) {
         try {
             String sql = "SELECT * FROM Account WHERE id = ?";
@@ -122,6 +138,19 @@ public class AccountDAO extends BaseDAO<Account> {
         }
     }
 
+    public void createAccount(String username, String password, String role) {
+        try {
+            String sql = "INSERT INTO Account (username, password, role, block) VALUES(?,?,?,'no')";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            statement.setString(3, role);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public ArrayList<Account> getAllAccount() {
         ArrayList<Account> account = new ArrayList<>();
         try {
@@ -161,5 +190,7 @@ public class AccountDAO extends BaseDAO<Account> {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public static void main(String[] args) {
+        new AccountDAO().createAccount("ROOT", "12345", "Admin");
+    }
 }
