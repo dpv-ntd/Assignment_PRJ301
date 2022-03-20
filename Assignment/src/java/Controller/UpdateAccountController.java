@@ -64,7 +64,7 @@ public class UpdateAccountController extends HttpServlet {
         String accountId = request.getParameter("accountId");
         Account account = new AccountDAO().getAccountById(accountId);
         String role = account.getRole();
-        
+
         request.setAttribute("role", role);
         request.setAttribute("account", account);
         request.getRequestDispatcher("UpdateAccount.jsp").forward(request, response);
@@ -81,6 +81,8 @@ public class UpdateAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
         String name = request.getParameter("name");
         String displayName = request.getParameter("displayName");
