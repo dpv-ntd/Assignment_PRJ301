@@ -46,19 +46,19 @@
                                 <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name"value="${account.displayName}">
+                                        <input type="text" class="form-control" id="name" name="name"value="${account.displayName}" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Phone</label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" value="${account.phone}">
+                                        <input type="tel" class="form-control" id="phone" name="phone" value="${account.phone}" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="phone" name="phone" value="${account.email}">
+                                        <input type="email" class="form-control" id="phone" name="phone" value="${account.email}" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address" value="${account.address}">
+                                        <input type="text" class="form-control" id="address" name="address" value="${account.address}" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="note" class="form-label">Note</label>
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="form-group btn-lg text-end py-3">
-                                <button class="btn btn-primary  btn-block" onclick="window.location = 'thankyou.html'">Place Order</button>
+                                <button class="btn btn-primary  btn-block" type="submit">Place Order</button>
                             </div>
                         </form>
                     </div>
