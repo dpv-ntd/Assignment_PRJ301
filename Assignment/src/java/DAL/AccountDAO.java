@@ -190,7 +190,19 @@ public class AccountDAO extends BaseDAO<Account> {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public static void main(String[] args) {
         new AccountDAO().createAccount("ROOT", "12345", "Admin");
+    }
+
+    public void deleteAccount(int accountId) {
+        try {
+            String sql = "DELETE Account WHERE id= ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, accountId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

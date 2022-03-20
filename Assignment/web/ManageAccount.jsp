@@ -153,12 +153,13 @@
                                                     <a href="update-account?accountId=${ac.id}" class="btn btn-primary me-2"><i class="bi bi-eye-fill"></i> View</a>
                                                     <c:choose>
                                                         <c:when test="${ac.block.equals('no')}">
-                                                            <a href="#" onclick="showMessDel(${ac.id}, 'yes')" class="btn btn-danger"><i class="bi bi-lock-fill"></i> Lock</a>
+                                                            <a href="#" onclick="showMessBanned(${ac.id}, 'yes')" class="btn btn-danger me-2"><i class="bi bi-lock-fill"></i> Lock</a>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <a href="#" onclick="showMessDel(${ac.id}, 'no')" class="btn btn-success"><i class="bi bi-unlock-fill"></i> Unlock</a>
+                                                            <a href="#" onclick="showMessBanned(${ac.id}, 'no')" class="btn btn-success me-2"><i class="bi bi-unlock-fill"></i> Unlock</a>
                                                         </c:otherwise>
                                                     </c:choose>
+                                                    <a href="#" onclick="showMessDel(${ac.id})" class="btn btn-danger flex-shrink-0 me-4"><i class="bi bi-trash-fill"></i> Remove</a>
 
                                                 </td>
                                             </tr>
@@ -170,10 +171,16 @@
                     </div>
                 </main>
                 <script>
-                    function showMessDel(id, block) {
+                    function showMessBanned(id, block) {
                         var option = confirm('Are you sure?')
                         if (option === true) {
                             window.location.href = 'banned-account?accountId=' + id + '&block=' + block;
+                        }
+                    }
+                    function showMessDel(id) {
+                        var option = confirm('Are you sure to delete?')
+                        if (option === true) {
+                            window.location.href = 'delete-account?accountId=' + id;
                         }
                     }
                 </script>

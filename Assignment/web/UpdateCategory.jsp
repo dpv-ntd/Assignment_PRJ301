@@ -62,72 +62,40 @@
 
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                List of category
-                                <div class="d-flex my-2">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-product">
-                                        <i class="bi bi-plus-circle-fill"></i> Add New
-                                    </button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="add-product" tabindex="-1" aria-labelledby="add-product" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="add-account"> Create Category</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <i class="fas fa-chart-bar me-1"></i>
+                                Update Category
+                            </div>
+                            <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas>
+                                <form action="update-category" method="post">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-center">
+                                            <div class="col-md-6" style="border: 1px solid #ccc; border-radius: 5px; padding: 1rem">
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">ID</label>
+                                                    <input type="text" class="form-control" name="id" readonly value="${category.id}">
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form action="manage-category" method="post">
-                                                        <div class="row">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Name</label>
-                                                                <input type="text" class="form-control" name="name">
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                                        </div>
-                                                    </form>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Name category</label>
+                                                    <input type="text" class="form-control" name="name" value="${category.name}" required>
                                                 </div>
+
                                             </div>
+
                                         </div>
+                                        <div class="form-group btn-lg text-center py-3">
+                                            <button class="btn btn-primary btn-block w-50">Save</button>
+                                        </div>
+
                                     </div>
-                                </div>
-                                <div class="card-body justify-content-center" >
-                                    <table id="datatablesSimple" class="text-center ">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Name</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${listCategory}" var="c">
-                                                <tr>
-                                                    <td>${c.id}</td>
-                                                    <td>${c.name}</td>
-                                                    <td>
-                                                        <a href="update-category?categoryId=${c.id}" class="btn btn-primary flex-shrink-0 me-2"><i class="bi bi-box-arrow-up"></i> Update</a>
-                                                        <a href="#" onclick="showMessDel(${c.id})" class="btn btn-danger flex-shrink-0"><i class="bi bi-trash-fill"></i> Remove</a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+                                </form>
                             </div>
                         </div>
+
+                    </div>
                 </main>
-                <script>
-                    function showMessDel(id) {
-                        var option = confirm('Are you sure to delete?')
-                        if (option === true) {
-                            window.location.href = 'delete-category?categoryId=' + id;
-                        }
-                    }
-                </script>
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

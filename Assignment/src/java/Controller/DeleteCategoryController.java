@@ -8,21 +8,18 @@ package Controller;
 import DAL.ProductsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
-import model.Products;
 
 /**
  *
  * @author DPV
  */
-@WebServlet(name = "ManageProductController", urlPatterns = {"/manage-product"})
-public class ManageProductController extends HttpServlet {
+@WebServlet(name = "DeleteCategoryController", urlPatterns = {"/delete-category"})
+public class DeleteCategoryController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +38,10 @@ public class ManageProductController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageProductController</title>");
+            out.println("<title>Servlet DeleteCategoryController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManageProductController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteCategoryController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,13 +59,11 @@ public class ManageProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductsDAO dao = new ProductsDAO();
-        ArrayList<Products> listProduct = dao.getProductsAndCategory();
-        ArrayList<Category> listCategory = dao.getCategory();
-        
-        request.setAttribute("listProduct", listProduct);
-        request.setAttribute("listCategory", listCategory);
-        request.getRequestDispatcher("ManageProduct.jsp").forward(request, response);
+
+        int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+
+        new ProductsDAO().deleteCategory(categoryId);
+        response.sendRedirect("manage-category");
     }
 
     /**
@@ -82,16 +77,7 @@ public class ManageProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
-        String productId = request.getParameter("productId");
-        ProductsDAO dao = new ProductsDAO();
-
-        switch (action) {
-            case "delete":
-                dao.deleteProduct(productId);
-                response.sendRedirect("manage-product");
-                return;
-        }
+        processRequest(request, response);
     }
 
     /**

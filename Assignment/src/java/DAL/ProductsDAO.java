@@ -229,6 +229,24 @@ public class ProductsDAO extends BaseDAO<Products> {
         return category;
     }
 
+    public Category getCategoryByID(int categoryId) {
+        try {
+            String sql = "SELECT * FROM Category where id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, categoryId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Category c = new Category();
+                c.setId(rs.getInt("id"));
+                c.setName(rs.getString("name"));
+                return c;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public void deleteProduct(String id) {
         try {
             String sql = "DELETE Product WHERE id=?";
@@ -288,6 +306,40 @@ public class ProductsDAO extends BaseDAO<Products> {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, quantity);
             statement.setInt(2, productId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateCategory(String categoryId, String categoryName) {
+        try {
+            String sql = "UPDATE Category SET name = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, categoryName);
+            statement.setString(2, categoryId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void createCategory(String name) {
+        try {
+            String sql = "INSERT INTO Category VALUES (?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteCategory(int categoryId) {
+        try {
+            String sql = "DELETE Category WHERE id=?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, categoryId);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProductsDAO.class.getName()).log(Level.SEVERE, null, ex);
