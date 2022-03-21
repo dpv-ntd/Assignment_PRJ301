@@ -5,11 +5,14 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author MyPC
  */
 public class Order {
+
     private int id;
     private int account_id;
     private double totalPrice;
@@ -81,6 +84,5 @@ public class Order {
     public String toString() {
         return "Order{" + "id=" + id + ", account_id=" + account_id + ", totalPrice=" + totalPrice + ", note=" + note + ", created_date=" + created_date + ", shipping_id=" + shipping_id + '}';
     }
-    
-    
+
 }

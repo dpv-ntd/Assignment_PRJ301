@@ -21,11 +21,12 @@ public class ShippingDAO extends BaseDAO<Shipping>{
 
     public int InsertAndReturnShippingId(Shipping shipping) {
         try {
-            String sql = "INSERT INTO Shipping(name, phone,address) VALUES (?,?,?)";
+            String sql = "INSERT INTO Shipping(name, phone, address, email) VALUES (?,?,?,?)";
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, shipping.getName());
             statement.setString(2, shipping.getPhone());
             statement.setString(3, shipping.getAddress());
+            statement.setString(4, shipping.getEmail());
             statement.executeUpdate();
             
             ResultSet rs = statement.getGeneratedKeys();

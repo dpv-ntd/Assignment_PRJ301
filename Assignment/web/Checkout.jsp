@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="phone" name="phone" value="${account.email}" required>
+                                        <input type="email" class="form-control" id="phone" name="email" value="${account.email}" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Address</label>

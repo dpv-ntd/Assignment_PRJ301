@@ -85,31 +85,43 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Products
+                                New orders
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Name</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Description</th>
-                                            <th>Image</th>
-                                            <th>Category</th>
+                                            <th>#Order ID</th>
+                                            <th>Username</th>
+                                            <th>Product</th>
+                                            <th>Total Price</th>
+                                            <th>Customer name</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
+                                            <th>Email</th>
+                                            <th>Note</th>
+                                            <th>Date created</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${listProduct}" var="p">
+                                        <c:forEach items="${listOrder}" var="o">
                                             <tr>
-                                                <td>${p.id}</td>
-                                                <td>${p.name}</td>
-                                                <td>${p.quantity}</td>
-                                                <td>${p.price}</td>
-                                                <td>${p.description}</td>
-                                                <td>${p.image_url}</td>
-                                                <td>${p.category_id}</td>
+                                                <td>${o.id}</td>
+                                                <td>${o.username}</td>
+                                                <td>
+                                                    <c:forEach items="${o.listProduct}" var="p">
+                                                        ${p.toString()}<br>
+                                                    </c:forEach>
+                                                </td>
+                                                <td>${o.totalprice}</td>
+                                                <td>${o.customerName}</td>
+                                                <td>${o.phone}</td>
+                                                <td>${o.address}</td>
+                                                <td>${o.email}</td>
+                                                <td>${o.note}</td>
+                                                <td>${o.dateCreated}</td>
+                                                <td><a class="btn btn-primary" href="view-order-detail?orderId=${o.id}">View</a></td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>

@@ -131,12 +131,14 @@ public class CheckoutController extends HttpServlet {
 
         String name = request.getParameter("name");
         String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
         String address = request.getParameter("address");
         String note = request.getParameter("note");
 
         Shipping shipping = new Shipping();
         shipping.setName(name);
         shipping.setPhone(phone);
+        shipping.setEmail(email);
         shipping.setAddress(address);
         ShippingDAO shippingdao = new ShippingDAO();
         int shippingId = new ShippingDAO().InsertAndReturnShippingId(shipping);
