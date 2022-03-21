@@ -77,7 +77,7 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Username</label>
-                                                    <input type="text" class="form-control" name="name" value="${account.username}" required>
+                                                    <input type="text" class="form-control" name="username" value="${account.username}" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Name</label>

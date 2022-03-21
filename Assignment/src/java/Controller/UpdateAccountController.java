@@ -84,13 +84,13 @@ public class UpdateAccountController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
-        String name = request.getParameter("name");
+        String username = request.getParameter("username");
         String displayName = request.getParameter("displayName");
         String address = request.getParameter("address");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String role = request.getParameter("rolechoose");
-        new AccountDAO().updateAccount(id, name, email, phone, address, role);
+        new AccountDAO().updateAccount(id, username, displayName, email, phone, address, role);
         response.sendRedirect("manage-account");
     }
 

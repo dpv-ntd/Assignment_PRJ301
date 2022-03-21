@@ -25,7 +25,7 @@ import model.Account;
  *
  * @author DPV
  */
-@WebFilter(filterName = "VerificationRoleFilter", urlPatterns = {"/manage/*","/manage-product","/delete-product","/update-product","/manage-account","/banned-account","/update-account",})
+@WebFilter(filterName = "VerificationRoleFilter", urlPatterns = {"/manage/*", "/manage-product", "/delete-product", "/update-product", "/manage-account", "/banned-account", "/update-account", "/delete-account", "/create-account", "/manage-category", "/update-category", "/delete-category", "/view-order-detail"})
 public class VerificationRoleFilter implements Filter {
 
     private static final boolean debug = true;
@@ -115,7 +115,7 @@ public class VerificationRoleFilter implements Filter {
                 res.sendRedirect("home");
                 return;
             }
-        } else{
+        } else {
             res.sendRedirect("login");
         }
 

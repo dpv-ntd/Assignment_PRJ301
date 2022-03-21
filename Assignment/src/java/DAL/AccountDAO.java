@@ -49,7 +49,7 @@ public class AccountDAO extends BaseDAO<Account> {
     public void updateProfiles(String id, String name, String email, String phone, String address) {
         try {
             String sql = "UPDATE Account SET displayName = ?, address = ?, email = ?, phone = ? WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, name);
             statement.setString(2, address);
             statement.setString(3, email);
@@ -61,16 +61,17 @@ public class AccountDAO extends BaseDAO<Account> {
         }
     }
 
-    public void updateAccount(String id, String name, String email, String phone, String address, String role) {
+    public void updateAccount(String id, String username, String displayName, String email, String phone, String address, String role) {
         try {
-            String sql = "UPDATE Account SET displayName = ?, address = ?, email = ?, phone = ? , role = ? WHERE id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, name);
+            String sql = "UPDATE Account SET displayName = ?, address = ?, email = ?, phone = ? , role = ? , username = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, displayName);
             statement.setString(2, address);
             statement.setString(3, email);
             statement.setString(4, phone);
             statement.setString(5, role);
-            statement.setString(6, id);
+            statement.setString(6, username);
+            statement.setString(7, id);
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,10 +190,6 @@ public class AccountDAO extends BaseDAO<Account> {
         } catch (SQLException ex) {
             Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public static void main(String[] args) {
-        new AccountDAO().createAccount("ROOT", "12345", "Admin");
     }
 
     public void deleteAccount(int accountId) {
